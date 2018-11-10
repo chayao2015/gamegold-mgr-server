@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "driver": "mysql",
+    "user": "root",
+    "password": "helloworld",
+    "host": "localhost",
+    "database": "gamecloud",
+    "multipleStatements": true
+  }
+}
