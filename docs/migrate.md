@@ -1,4 +1,4 @@
-Migrations API - SQL
+# Migrations API - SQL
 
 Below are examples of all the different migrations supported by db-migrate. Please note that not all migrations are supported by all databases. For example, SQLite does not support dropping columns.
 
@@ -11,8 +11,10 @@ Arguments
 tableName - the name of the table to create
 columnSpec - a hash of column definitions
 callback(err) - callback that will be invoked after table creation
+
 Examples
 
+```js
 // with no table options
 exports.up = function (db, callback) {
   db.createTable('pets', {
@@ -31,6 +33,8 @@ exports.up = function (db, callback) {
     ifNotExists: true
   }, callback);
 }
+```
+
 Column Specs
 
 The following options are available on column specs
@@ -47,6 +51,7 @@ Column ForeignKey Spec Examples
 
 Note: Currently only supported together with mysql!
 
+```js
 exports.up = function(db, callback) {
 
   //automatic mapping, the mapping key resolves to the column
@@ -115,6 +120,7 @@ exports.up = function(db, callback) {
   }, callback );
 };
 dropTable(tableName, [options,] callback)
+```
 
 Drop a database table
 
@@ -199,6 +205,7 @@ rules - ondelete, onupdate constraints
 callback(err) - callback that will be invoked after adding the foreign key
 Example
 
+```js
 exports.up = function (db, callback)
 {
   db.addForeignKey('module_user', 'modules', 'module_user_module_id_foreign',
@@ -210,6 +217,8 @@ exports.up = function (db, callback)
     onUpdate: 'RESTRICT'
   }, callback);
 };
+```
+
 removeForeignKey
 
 Arguments
@@ -223,6 +232,7 @@ Options
 dropIndex (default: false) - deletes the index with the same name as the foreign key
 Examples
 
+```js
 //without options object
 exports.down = function (db, callback)
 {
@@ -238,6 +248,7 @@ exports.down = function (db, callback)
   }, callback);
 };
 insert(tableName, columnNameArray, valueArray, callback)
+```
 
 Insert an item into a given column
 

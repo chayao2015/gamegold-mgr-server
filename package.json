@@ -22,10 +22,8 @@
     "log": "pm2 startOrRestart game.config.js & pm2 log",
     "stop": "pm2 delete game.config.js",
     "test": "mocha",
-    "docs": "jsdoc -c jsdoc.json",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
-    "maintain": "node ./facade/util/maintain.js",
-    "admin": "node ./facade/util/cli.js",
+    "maintain": "node ./app/maintain.js",
     "commit": "cd config & db-migrate up --config migrations/gamecloud.json & cd..",
     "rollback": "cd config & db-migrate reset --config migrations/gamecloud.json & cd..",
     "dbinit": "cd config & db-migrate db:create gamecloud & db-migrate up --config migrations/gamecloud.json -e dev & cd.."
@@ -50,6 +48,10 @@
     "pmx": "^1.6.7",
     "request-promise": "^4.2.2",
     "should": "^11.2.1"
+  },
+  "optionalDependencies": {
+    "gamegoldtoolkit": "^1.2.8",
+    "gamegold": "^1.2.2"
   },
   "dependencies": {
     "after": "^0.8.2",
@@ -86,7 +88,7 @@
     "encodeurl": "^1.0.1",
     "escape-html": "^1.0.3",
     "exit-on-epipe": "^1.0.0",
-    "gamecloud": "^1.1.2",
+    "gamecloud": "^1.1.5",
     "getpass": "^0.1.7",
     "has-cors": "^1.1.0",
     "has-flag": "^2.0.0",

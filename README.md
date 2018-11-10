@@ -1,52 +1,8 @@
-# 游戏云服务器 gamecloud
+# 后台管理系统(gamegold-mgr-server)
 
 ## 概述
 
-游戏云服务器(gamecloud)是一个基于NodeJS技术开发的纯JavaScript服务端引擎，为H5游戏量身定做，其特点如下：
-
-- 开箱即用。
-
-游戏云服务器 的设计理念是，"简单是不够的，要极其简单"。
-
-- 开放式设计。
-
-游戏云服务器 自然融入 npm 生态，你可以通过第三方库或自定义代码，利用插件、扩展服务、中间件、自定义事件、新增核心类等机制，随时对框架进行补足和增强。
-
-- 可伸缩性设计
-
-### 关于集群
-- gamecloud 是一个可伸缩集群，整个集群由单台或多台服务器组成。
-- 集群运行多个不同类型的节点，灵活分配于各台服务器上，可在 ./game.config.js 中完成配置
-- 建议起步阶段以单服务器模式运行，熟悉体系后再扩展至由多台服务器组成的集群
-
-```js
-let config = { 
-    "servers": [],      //集中配置集群中所有节点，在集群中所有服务器上保持一致
-    "apps": [],         //配置当前服务器运行的节点列表
-}
-```
-
-- 集群中，有且只有一个节点兼任门户节点
-
-```js
-    "apps" : [
-        {
-            "name"      : "Chick_IOS_1",
-            "script"    : "facade/start.js",
-            "cwd"         : "./",
-            "error_file" : "./logs/ios1/app-err.log",
-            "env": {
-                "NODE_ENV": "production",
-                "sys":{
-                    "serverType": "IOS",
-                    "serverId": 1,
-                    "portal": true  //指示该节点兼任门户
-                }
-            }
-        }
-    ]
-
-```
+gamegold-mgr-server 是一个基于游戏云服务器(gamecloud, https://github.com/bookmansoft/gamecloud)的脚手架项目
 
 ## 搭建运行环境
 
@@ -72,10 +28,10 @@ npm i -g node-gyp
 npm i -g --production windows-build-tools
 ```
 
-2. 下载软件仓库、安装依赖包
+2. 下载脚手架、安装依赖包
 
 ```bash
-git clone https://github.com/bookmansoft/gamecloud
+git clone https://github.com/bookmansoft/gamegold-mgr-server
 npm i
 ```
 
@@ -141,7 +97,7 @@ npm run dbinit
     npm run dbinit
     ```
 
-## 运行游戏云服务器
+## 运行后台管理系统
 
 1. 配置数据库连接参数，用于各节点的数据库连接串
 
@@ -161,7 +117,7 @@ let mysql = {
 };
 ```
 
-2. 运行服务器
+2. 启动服务
 
 **该步骤使用了 PM2 进程管理软件，一次性启动所有当前服务器上已配置节点**
 ```bash
@@ -174,7 +130,7 @@ npm start
 npm run test
 ```
 
-4. 停止游戏云服务器
+4. 停止服务
 
 ```bash
 npm stop
@@ -207,3 +163,18 @@ npm stop
 ```bash
 npm run test
 ```
+
+## 部署网站
+
+gamegold-mgr-server 作为游戏服务端引擎的同时，也可以承担静态网站服务器功能：
+
+```js
+//设置静态资源映射, 注意必须在调用 facade.boot 之前设置
+facade.static('/client/', './web/client');
+```
+
+服务器启动后，可以通过浏览器访问 http://localhost:9901/client 访问工作目录的子目录 web/client 中的静态资源
+
+典型的工作场景为：
+1. 架设 gamegold-mgr-server 作为 JSONP 服务器，并设置静态资源映射
+2. 使用 React / AngularJs / VUE / CocosCreator 开发单页面应用，打包并拷贝到已映射目录中，即可对外提供服务
