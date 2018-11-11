@@ -17,7 +17,7 @@ class test extends facade.Control
      * @returns {Promise.<void>}
      */
     async notify(user, objData) {
-        user.notify({type: NotifyType.none, info:objData.msg});
+        user.notify({type: NotifyType.test, info:objData.msg});
     }
 
     async echo(user, objData) {
