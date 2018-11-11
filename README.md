@@ -1,8 +1,11 @@
-# 后台管理系统(gamegold-mgr-server)
+# 后台管理系统服务端(gamegold-mgr-server)
 
 ## 概述
 
-gamegold-mgr-server 是一个基于游戏云服务器(gamecloud, https://github.com/bookmansoft/gamecloud)的脚手架项目
+gamegold-mgr-server 是一个基于游戏云服务器(gamecloud, https://github.com/bookmansoft/gamecloud)的脚手架项目，一个基于 Restful / Websocket 的服务端系统
+gamegold-mgr-server 可作为单页应用 gamegold-mgr (https://github.com/bookmansoft/gamegold-mgr) 的配套服务端，共同实现一个全功能后台管理系统
+
+补充说明文档请参见 ./docs 目录
 
 ## 搭建运行环境
 
@@ -178,3 +181,29 @@ facade.static('/client/', './web/client');
 典型的工作场景为：
 1. 架设 gamegold-mgr-server 作为 JSONP 服务器，并设置静态资源映射
 2. 使用 React / AngularJs / VUE / CocosCreator 开发单页面应用，打包并拷贝到已映射目录中，即可对外提供服务
+
+## 对 HTTPS 的支持
+
+1. 修改 game.config.js 中的协议配置
+
+```js
+let config = {
+    "servers":{
+        "Index":{
+            "1":{
+                "UrlHead": "https",  //将协议由 http 修改为 https
+            }
+        }
+    }
+}
+```
+
+2. 将制作好的证书拷贝至 config/cert 目录下
+
+3. 重新启动系统
+
+```bash
+npm start
+```
+
+**注意该配置将作用于当前服务器部署的所有节点，并不仅限于门户节点**

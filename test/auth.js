@@ -2,9 +2,22 @@
  * 单元测试：注册登录
  * Creted by liub 2017.3.24
  */
-let facade = require('gamecloud');
-let {ReturnCodeName, CommMode, ReturnCode, NotifyType, UserStatus} = facade.const;
-let remote = facade.Util.clientComm;
+
+let {gameconn} = require('gamegoldtoolkit');
+
+//创建连接器对象
+let remote = new gameconn(gameconn.CommMode.ws, {
+    "UrlHead": "http",              //协议选择: http/https
+    "webserver": {
+        "host": "127.0.0.1",        //远程主机地址
+        "port": 9901                //远程主机端口
+    },
+    "auth": {
+        "openid": "18681223392",
+        "openkey": "18681223392",
+        "domain": "tx.IOS",
+    }
+}).setFetch(require('node-fetch')); //设置node环境下兼容的fetch函数
 
 describe('认证', function() {
     /**
