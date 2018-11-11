@@ -8,9 +8,15 @@ class testEntity extends BaseEntity
         super(orm, router);
     }
 
+    /**
+     * 读操作：ORM对象中item字段的映射属性
+     */
 	get item() {
         return !!this.orm ? this.orm.item : '';
 	}
+    /**
+     * 写操作：ORM对象中item字段的映射属性
+     */
 	set item(val) {
         if(!!this.orm){
             this.orm.item = val;
@@ -18,6 +24,9 @@ class testEntity extends BaseEntity
         }
 	}
 
+    /**
+     * 脏数据存储
+     */
     Save() {
         if(this.dirty){
             this.dirty = false;
@@ -28,7 +37,11 @@ class testEntity extends BaseEntity
     /**
      * 数据发生变化时的事件句柄
      */
-    onUpdate(){
+    onUpdate() {
+        //可选方法1：立即存储
+        //this.Save();
+
+        //可选方法2：抛出更新事件
         facade.current.notifyEvent('test.update', {test:this})
     }
 
@@ -37,7 +50,7 @@ class testEntity extends BaseEntity
     /**
      * 索引值，用于配合Mapping类的索引/反向索引
      */
-    IndexOf(type){
+    IndexOf(type) {
         switch(type){
             default:
                 return this.orm.id;
