@@ -35,6 +35,7 @@ npm i -g --production windows-build-tools
 
 ```bash
 git clone https://github.com/bookmansoft/gamegold-mgr-server
+cd gamegold-mgr-server
 npm i
 ```
 
