@@ -154,7 +154,7 @@ npm stop
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}\\facade\\start.js"
+            "program": "${workspaceFolder}\\app\\start.js"
         }
     ]
 }
