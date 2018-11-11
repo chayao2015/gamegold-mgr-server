@@ -49,7 +49,7 @@ describe('认证', function() {
         });
     });
 
-    it('请求服务端推送一条下行消息', done => {
+    it.only('请求服务端推送一条下行消息', done => {
         let first = true;
         remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
             remote.watch(msg => {
@@ -58,7 +58,7 @@ describe('认证', function() {
                     done();
                     first = false;
                 }
-            }, gameconn.NotifyType.test).fetching({func: "test.notify", msg: 'helloworld'}, msg => {
+            }, gameconn.NotifyType.test).fetching({func: "test.notify", id: 2}, msg => {
             });
         });
     });

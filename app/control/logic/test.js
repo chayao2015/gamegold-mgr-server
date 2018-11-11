@@ -17,7 +17,9 @@ class test extends facade.Control
      * @returns {Promise.<void>}
      */
     async notify(user, objData) {
-        user.notify({type: NotifyType.test, info:objData.msg});
+        let test = facade.GetObject(101, objData.id);           //根据上行id查找test表中记录
+        user.notify({type: NotifyType.test, info:test.item});   //下行所得记录的item字段
+        test.item = 'success';                                  //修改所得记录的item字段，下次查询时将得到新值，同时会自动存入数据库
     }
 
     async echo(user, objData) {
