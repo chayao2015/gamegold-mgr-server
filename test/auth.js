@@ -49,16 +49,57 @@ describe('认证', function() {
         });
     });
 
-    it.only('请求服务端推送一条下行消息', done => {
-        let first = true;
+    it('请求服务端推送一条下行消息', done => {
         remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
             remote.watch(msg => {
                 console.log(msg);
-                if(first) {
-                    done();
-                    first = false;
-                }
+                done();
             }, gameconn.NotifyType.test).fetching({func: "test.notify", id: 2}, msg => {
+            });
+        });
+    });
+
+    it('创建', done => {
+        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
+            remote.fetching({func: "test.Create"}, msg => {
+                console.log(msg);
+                done();
+            });
+        });
+    });
+
+    it.only('删除', done => {
+        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
+            remote.fetching({func: "test.Delete", id:1}, msg => {
+                console.log(msg);
+                done();
+            });
+        });
+    });
+
+    it('查询', done => {
+        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
+            remote.fetching({func: "test.Retrieve", id: 2}, msg => {
+                console.log(msg);
+                done();
+            });
+        });
+    });
+
+    it('更新', done => {
+        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
+            remote.fetching({func: "test.Update", id: 2}, msg => {
+                console.log(msg);
+                done();
+            });
+        });
+    });
+
+    it('列表', done => {
+        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
+            remote.fetching({func: "test.List"}, msg => {
+                console.log(msg);
+                done();
             });
         });
     });

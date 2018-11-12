@@ -71,10 +71,10 @@ class testEntity extends BaseEntity
     /**
      * 创建时的回调函数
      */
-    static async onCreate(domain, uuid, product_id, total_fee, notify_time, product_name, request_count) {
+    static async onCreate(item) {
         try{
             let it = await Test().create({
-                'item': '',
+                'item': item,
             });
             await it.save();
     
