@@ -4,4 +4,4 @@
 
 const facade = require('gamecloud');
 
-facade.Util.maintain();
+facade.tools.maintain();

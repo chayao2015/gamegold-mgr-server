@@ -1,6 +1,4 @@
 let facade = require('gamecloud')
-let {EntityType, UserStatus} = facade.const
-let testEntity = require('../../model/entity/testEntity')
 
 /**
  * VIP监控任务对象

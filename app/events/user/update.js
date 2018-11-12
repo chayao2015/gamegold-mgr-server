@@ -1,6 +1,5 @@
 let facade = require('gamecloud')
 let UserEntity = facade.UserEntity
-let autoSave = facade.Util.autoSave
 
 /**
  * Created by admin on 2017-05-26.
@@ -8,7 +7,7 @@ let autoSave = facade.Util.autoSave
 function handle(event) {
     //刷新榜单
     facade.GetRanking(UserEntity).Update(event.user, false); //必须确保此函数内部没有对user做出修改，否则会造成死循环
-    facade.current.autoTaskMgr.addTask(new autoSave(event.user.id));
+    facade.current.autoTaskMgr.addTask(new facade.autoExec['autoSave'](event.user.id));
 }
 
 module.exports.handle = handle;

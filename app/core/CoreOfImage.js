@@ -3,11 +3,10 @@
  */
 
 let CoreOfBase = require('../../facade/core/CoreOfBase');
-let request = require('request');
 let rp = require('request-promise');
 
 /**
- * 逻辑服对应的门面类
+ * 实现图像服务端中转的门面类
  */
 class CoreOfImage extends CoreOfBase {
     async Start(app){
@@ -25,15 +24,7 @@ class CoreOfImage extends CoreOfBase {
         app.get('/socialImg', (req, res)=>{
             if(!!req.query.m){
                 try{
-                    //console.time('getImage');
-                    
-                    //普通版本
-                    //request(decodeURIComponent(req.query.m)).pipe(res);   
-
-                    //Promise版本
                     rp({uri: decodeURIComponent(req.query.m),headers: {'User-Agent': 'Request-Promise',}}).pipe(res);
-
-                    //console.timeEnd('getImage');
                 }
                 catch(e){
                     console.error(e);
