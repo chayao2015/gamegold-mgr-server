@@ -42,8 +42,9 @@ describe('认证', function() {
     it('简单应答', done => {
         remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
             remote.isSuccess(msg);
+            //所有的控制器都拥有echo方法
             remote.fetching({func: "test.echo"}, msg => {
-                remote.isSuccess(msg);
+                remote.isSuccess(msg, true);
                 done();
             });
         });
@@ -68,7 +69,7 @@ describe('认证', function() {
         });
     });
 
-    it.only('删除', done => {
+    it('删除', done => {
         remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
             remote.fetching({func: "test.Delete", id:1}, msg => {
                 console.log(msg);

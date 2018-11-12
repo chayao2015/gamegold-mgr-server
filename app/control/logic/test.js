@@ -24,8 +24,8 @@ class test extends facade.Control
     Update(user, objData) {
         let test = facade.GetObject(101, objData.id);           //根据上行id查找test表中记录
         if(!!test) {
-            test.item = Math.random().toString();                   //修改所得记录的item字段，下次查询时将得到新值，同时会自动存入数据库
-            return {code: ReturnCode.Success, data: test.item};
+            test.setAttr('item', Math.random().toString());     //修改所得记录的item字段，下次查询时将得到新值，同时会自动存入数据库
+            return {code: ReturnCode.Success, data: test.getAttr('item')};
         }
         return {code: -1};
     }

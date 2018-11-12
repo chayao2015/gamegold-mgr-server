@@ -9,32 +9,6 @@ class testEntity extends BaseEntity
     }
 
     /**
-     * 读操作：ORM对象中item字段的映射属性
-     */
-	get item() {
-        return !!this.orm ? this.orm.item : '';
-	}
-    /**
-     * 写操作：ORM对象中item字段的映射属性
-     */
-	set item(val) {
-        if(!!this.orm){
-            this.orm.item = val;
-            this.dirty = true;
-        }
-	}
-
-    /**
-     * 脏数据存储
-     */
-    Save() {
-        if(this.dirty){
-            this.dirty = false;
-            this.orm.save().then(e=>{});
-        }
-    }
-
-    /**
      * 数据发生变化时的事件句柄
      */
     onUpdate() {
