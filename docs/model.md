@@ -35,12 +35,7 @@ app/model/entity/testEntity.js
     }
 ```
 
-在 onUpdate 函数中填写更新策略：立即更新或者抛出更新事件
-
-5. 如果第4步中选择事件更新模式，需要新增更新事件处理对象
-app/util/autoExec/testAuteSave.js
-
-6. 将新增表添加进系统自动加载列表中
+5. 将新增表加入自动加载列表中
 ```js
 facade.boot({
     env: env,

@@ -4,46 +4,21 @@ let {Test} = require('../table/test')
 
 class testEntity extends BaseEntity
 {
-    constructor(orm, router){
-        super(orm, router);
-    }
-
-    /**
-     * 数据发生变化时的事件句柄
-     */
-    onUpdate() {
-        //可选方法1：立即存储
-        //this.Save();
-
-        //可选方法2：抛出更新事件
-        facade.current.notifyEvent('test.update', {test:this})
-    }
-
     //region 集合功能
 
     /**
-     * 索引值，用于配合Mapping类的索引/反向索引
+     * 为 Mapping 映射进行参数配置
      */
-    IndexOf(type) {
-        switch(type){
-            default:
-                return this.orm.id;
-        }
-    }
-
-    /**
-     * 使用Mapping映射类时的配置参数
-     */
-    static get mapParams(){
+    static get mapParams() {
         return {
-            model: Test,                    //对应数据库单表的ORM封装
-            entity: this,                   //实体对象，在model之上做了多种业务封装
-            etype: 101,                     //实体类型
+            etype: 101,                     //表类型
+            model: Test,                    //表映射类
+            entity: testEntity,             //ORM映射类
         };
     }
 
     /**
-     * 创建时的回调函数
+     * 创建记录时的钩子函数
      */
     static async onCreate(item) {
         try{
@@ -61,16 +36,15 @@ class testEntity extends BaseEntity
     }
 
     /**
-     * 进行字典映射时的回调函数
+     * 进行字典映射时的钩子函数
      * @param {*} record 
      */
     static onMapping(record){
-        let obj = new testEntity(record, facade.current);
-        return obj;
+        return new testEntity(record, facade.current);
     }
 
     /**
-     * 载入数据库记录时的回调函数
+     * 载入数据库记录时的钩子函数
      * @param {*} db 
      * @param {*} sa 
      * @param {*} pwd 
@@ -88,7 +62,16 @@ class testEntity extends BaseEntity
             });
         } catch(e) {}
     }
+
     //endregion
+
+    /**
+     * 记录更新函数，可省略而直接使用基类方法(调用 this.Save() 直接写数据库)
+     */
+    onUpdate() {
+        //抛出更新事件，可以将短时间内的频繁更新合并为单条数据库写
+        facade.current.notifyEvent('test.update', {test:this})
+    }
 }
 
 exports = module.exports = testEntity;

@@ -1,28 +1,9 @@
 /**
- * 单元测试：注册登录
+ * 单元测试：注册登录、简单应答、推送
  * Creted by liub 2017.3.24
  */
 
-//引入远程连接器
-let {gameconn} = require('gamegoldtoolkit');
-
-//创建连接器对象
-let remote = new gameconn(
-    gameconn.CommMode.ws,               //使用 WebSocket 连接方式
-    {
-        "UrlHead": "http",              //协议选择: http/https
-        "webserver": {
-            "host": "127.0.0.1",        //远程主机地址
-            "port": 9901                //远程主机端口
-        },
-        "auth": {
-            "openid": "18681223392",    //用户标识
-            "openkey": "18681223392",   //和用户标识关联的用户令牌
-            "domain": "tx.IOS",         //用户所在的域，tx是提供登录验证服务的厂商类别，IOS是该厂商下的服务器组别
-        }
-    }
-)
-.setFetch(require('node-fetch'));      //设置node服务端环境下兼容的fetch函数，**注意只能在node服务端环境中执行，浏览器环境中系统自带 fetch 函数**
+const remote = require('./util')
 
 //一组单元测试流程
 describe('认证', function() {
@@ -55,52 +36,7 @@ describe('认证', function() {
             remote.watch(msg => {
                 console.log(msg);
                 done();
-            }, gameconn.NotifyType.test).fetching({func: "test.notify", id: 2}, msg => {
-            });
-        });
-    });
-
-    it('创建', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Create"}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
-    });
-
-    it('删除', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Delete", id:1}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
-    });
-
-    it('查询', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Retrieve", id: 2}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
-    });
-
-    it('更新', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Update", id: 2}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
-    });
-
-    it('列表', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.List"}, msg => {
-                console.log(msg);
-                done();
+            }, remote.NotifyType.test).fetching({func: "test.notify", id: 2}, msg => {
             });
         });
     });

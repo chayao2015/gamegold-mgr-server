@@ -33,7 +33,7 @@ let remote = new gameconn(
         }
     }
 )
-.setFetch(require('node-fetch'));      //设置node服务端环境下兼容的fetch函数，**注意只能在node服务端环境中执行，浏览器环境中系统自带 fetch 函数**
+.setFetch(require('node-fetch'));      //设置node服务端环境下的fetch函数，只在node服务端环境中执行，浏览器环境自带fetch函数
 
 remote.fetching({func: "test.notify", msg: 'helloworld'}, msg => { 
     console.log(msg);

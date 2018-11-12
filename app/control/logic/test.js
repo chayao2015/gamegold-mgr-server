@@ -7,6 +7,13 @@ let {ReturnCode, NotifyType} = facade.const
 class test extends facade.Control
 {
     /**
+     * 中间件设置
+     */
+    get middleware() {
+        return ['parseParams', 'commonHandle'];
+    }
+
+    /**
      * 增
      * @param {*} user 
      * @param {*} objData 
