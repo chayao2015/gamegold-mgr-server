@@ -1,5 +1,5 @@
 let facade = require('gamecloud')
-let UserEntity = facade.UserEntity
+let UserEntity = facade.entities.UserEntity
 
 /**
  * Created by admin on 2017-05-26.
