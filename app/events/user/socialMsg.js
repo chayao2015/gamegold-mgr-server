@@ -1,6 +1,6 @@
 let facade = require('gamecloud')
 let {EntityType, NotifyType, ResType} = facade.const
-let {EventData} = facade.Util.EventData
+let EventData = facade.Util.EventData
 
 /**
  * 添加资源消息句柄

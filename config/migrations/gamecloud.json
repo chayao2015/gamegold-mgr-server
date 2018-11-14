@@ -1,9 +1,9 @@
 {
   "dev": {
     "driver": "mysql",
-    "user": "root",
-    "password": "helloworld",
-    "host": "localhost",
+    "user": "gamecloud",
+    "password": "gamecloudmysql",
+    "host": "121.40.82.216",
     "database": "gamecloud",
     "multipleStatements": true
   }

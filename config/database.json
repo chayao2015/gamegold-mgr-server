@@ -2,7 +2,7 @@
   "dev": {
     "driver": "mysql",
     "user": "root",
-    "password": "helloworld",
-    "host": "localhost"
+    "password": "rootmysql",
+    "host": "121.40.82.216"
   }
 }
