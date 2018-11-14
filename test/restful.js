@@ -3,7 +3,7 @@ let {gameconn} = require('gamegoldtoolkit');
 
 //创建连接器对象
 let remote = new gameconn(
-    gameconn.CommMode.ws,               //使用 get 连接方式
+    gameconn.CommMode.get,             //使用短连接 get / post
     {
         "UrlHead": "http",              //协议选择: http/https
         "webserver": {
@@ -27,7 +27,10 @@ describe('Restful', function() {
         done => { /*单元测试的函数体，书写测试流程*/
         remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
             remote.isSuccess(msg); //使用断言，对返回值进行合理性判定，如判定失败则抛出异常，下面的 done 就不会被执行
-            done();
+            remote.fetching({func: "test.Retrieve", id: 5}, msg => {
+                remote.log(msg);
+                done();
+            });
         });
     });
 });

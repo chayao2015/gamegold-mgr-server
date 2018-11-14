@@ -1,8 +1,6 @@
 const facade = require('gamecloud')
 //加载用户自定义模块
 facade.addition = true;
-//设置静态资源映射
-facade.static('/client/', './web/client');
 
 let env = !!process.env.sys ? JSON.parse(process.env.sys) : {
     serverType: "IOS",      //待调测的服务器类型
@@ -26,7 +24,10 @@ if(env.portal) { //如果该服务器兼任门户，则启动索引服务
 
 facade.boot({
     env: env,
+    //指示加载自定义数据库表
     loading: [
-        101,        //指示加载 test 表
+        101,        
     ],
+    //设置静态资源映射
+    static: [['/client/', './web/client']], 
 });

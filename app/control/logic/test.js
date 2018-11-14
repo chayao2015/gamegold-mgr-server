@@ -43,7 +43,8 @@ class test extends facade.Control
      * @param {*} objData 
      */
     Retrieve(user, objData) {
-        let test = facade.GetObject(101, objData.id);           //根据上行id查找test表中记录
+        //根据上行id查找test表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
+        let test = facade.GetObject(101, parseInt(objData.id));  
         if(!!test) {
             return {code: ReturnCode.Success, data: test.getAttr('item')};
         }
