@@ -45,7 +45,7 @@ class test extends facade.Control
     Retrieve(user, objData) {
         let test = facade.GetObject(101, objData.id);           //根据上行id查找test表中记录
         if(!!test) {
-            return {code: ReturnCode.Success, data: test.item};
+            return {code: ReturnCode.Success, data: test.getAttr('item')};
         }
         return {code: -1};
     }
