@@ -6,48 +6,32 @@
 const remote = require('./util')
 
 describe('CURD', function() {
-    it('创建', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Create"}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
+    this.beforeEach(async () => {
+        await remote.login({openid: `${Math.random()*1000000000 | 0}`});
     });
 
-    it('删除', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Delete", id:1}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
+    it('创建', async () => {
+        let msg = await remote.fetching({func: "test.Create"});
+        console.log(msg);
     });
 
-    it('查询', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Retrieve", id: 2}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
+    it('删除', async () => {
+        let msg = await remote.fetching({func: "test.Delete", id:1});
+        console.log(msg);
     });
 
-    it('更新', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Update", id: 2}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
+    it('查询', async () => {
+        let msg = await remote.fetching({func: "test.Retrieve", id: 2});
+        console.log(msg);
     });
 
-    it('列表', done => {
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.List"}, msg => {
-                console.log(msg);
-                done();
-            });
-        });
+    it('更新', async () => {
+        let msg = await remote.fetching({func: "test.Update", id: 2});
+        console.log(msg);
+    });
+
+    it('列表', async () => {
+        let msg = await remote.fetching({func: "test.List"});
+        console.log(msg);
     });
 });

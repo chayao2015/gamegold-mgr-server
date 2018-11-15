@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="./js/toolkit-1.5.2.js"></script>
+	<script src="./js/toolkit-1.5.3.js"></script>
 </head>
 <body>
 	<div id='content'></div>
@@ -13,7 +13,7 @@
 			//     get: "get",         //HTTP GET
 			//     post: "post",       //HTTP POST
 			// }
-			toolkit.gameconn.CommMode.get,      //使用 get 连接方式
+			toolkit.gameconn.CommMode.ws,      //连接方式
 			{
 				"UrlHead": "http",              //协议选择: http/https
 				"webserver": {
@@ -28,11 +28,9 @@
 			}
 		)
 
-        remote.auth({openid: `${Math.random()*1000000000 | 0}`}, msg => {
-            remote.fetching({func: "test.Retrieve", id: 5}, msg => {
-				document.getElementById('content').innerHTML = JSON.stringify(msg);
-            });
-        });
+        await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+		let msg = await remote.fetching({func: "2001"});
+		document.getElementById('content').innerHTML = JSON.stringify(msg);
 	</script>
 </body>
 </html>
