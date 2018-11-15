@@ -93,6 +93,7 @@ class test extends facade.Control
      */
     async notify(user, objData) {
         user.notify({type: NotifyType.test, info:objData.id});   //下行通知
+        return {code: ReturnCode.Success};
     }
 }
 
