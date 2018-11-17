@@ -171,8 +171,10 @@ npm run test
 gamegold-mgr-server 作为游戏服务端引擎的同时，也可以承担静态网站服务器功能：
 
 ```js
-//设置静态资源映射, 注意必须在调用 facade.boot 之前设置
-facade.static('/client/', './web/client');
+//在启动节点的同时，设置静态资源映射
+facade.boot({
+    static: [['/client/', './web/client']],
+});
 ```
 
 服务器启动后，可以通过浏览器访问 http://localhost:9901/client 访问工作目录的子目录 web/client 中的静态资源
