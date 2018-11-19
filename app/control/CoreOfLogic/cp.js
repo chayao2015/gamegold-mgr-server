@@ -30,7 +30,7 @@ class cp extends facade.Control
         console.log(paramGold.items[0]);
         console.log(paramGold.items[1]);
         console.log(paramGold.items[2]);
-        let ret = await remote.execute('cp.create', paramGold.items);//数组参数调用，无参数时传入空数组
+        let ret = await remote.execute('cp.create', paramGold.items);
         console.log(ret);
         return {code: ReturnCode.Success,result: ret};
     }
@@ -45,7 +45,7 @@ class cp extends facade.Control
         console.log(paramGold.items[1]);
         console.log(paramGold.items[2]);
         console.log(paramGold.items[3]);
-        let ret = await remote.execute('cp.list', paramGold.items);//数组参数调用，无参数时传入空数组
+        let ret = await remote.execute('cp.list', paramGold.items);
         console.log(ret);
         return {code: ReturnCode.Success,list: ret};
     }
