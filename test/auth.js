@@ -36,11 +36,20 @@ describe('认证', function() {
         }
     });
 
-    it.only('简单应答', async () => {
+    it.only('cp.list', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
             //所有的控制器都拥有echo方法
             msg = await remote.fetching({func: "cp.List"});
+            remote.isSuccess(msg, true);
+        }
+    });
+
+    it.only('test.Retrieve', async () => {
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+            //所有的控制器都拥有echo方法
+            msg = await remote.fetching({func: "test.Retrieve",id:2});
             remote.isSuccess(msg, true);
         }
     });
