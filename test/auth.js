@@ -35,4 +35,13 @@ describe('认证', function() {
             }, remote.NotifyType.test).fetching({func: "test.notify", id: 2});
         }
     });
+
+    it.only('简单应答', async () => {
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+            //所有的控制器都拥有echo方法
+            msg = await remote.fetching({func: "cp.List"});
+            remote.isSuccess(msg, true);
+        }
+    });
 });

@@ -1,8 +1,8 @@
 {
   "dev": {
     "driver": "mysql",
-    "user": "root",
-    "password": "rootmysql",
+    "user": "gamecloud",
+    "password": "gamecloudmysql",
     "host": "121.40.82.216"
   }
 }
