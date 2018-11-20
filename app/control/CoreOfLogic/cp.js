@@ -22,18 +22,6 @@ class cp extends facade.Control
     }
 
     /**
-     * 查询系统中现有的所有CP列表：cp.list
-     * @param {*} user 
-     * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
-     */
-    async List(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('cp.list', paramGold.items);
-        console.log(ret);
-        return {code: ReturnCode.Success,list: ret};
-    }
-
-    /**
      * CP注册指令：cp.create "name" "url" ["ip"]
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
@@ -42,7 +30,7 @@ class cp extends facade.Control
         console.log(paramGold.items);
         let ret = await remote.execute('cp.create', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,result: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
 
     /**
@@ -54,7 +42,7 @@ class cp extends facade.Control
         console.log(paramGold.items);
         let ret = await remote.execute('cp.change', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,result: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
 
     /**
@@ -66,7 +54,7 @@ class cp extends facade.Control
         console.log(paramGold.items);
         let ret = await remote.execute('cp.ById', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,result: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
 
     /**
@@ -78,9 +66,22 @@ class cp extends facade.Control
         console.log(paramGold.items);
         let ret = await remote.execute('cp.ByName', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,result: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
 
+    /**
+     * 查询系统中现有的所有CP列表：cp.list
+     * @param {*} user 
+     * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
+     */
+    async List(user, paramGold) {
+        console.log(paramGold.items);
+        let ret = await remote.execute('cp.list', paramGold.items);
+        console.log(ret);
+        return {code: ReturnCode.Success,data: ret};
+    }
+
+    
 }
 
 exports = module.exports = cp;

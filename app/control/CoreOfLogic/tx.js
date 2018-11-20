@@ -9,10 +9,10 @@ const remote = new toolkit.conn();
 remote.setFetch(require('node-fetch'))  
 
 /**
- * 游戏的控制器
+ * 交易的控制器
  * Updated by thomasFuzhou on 2018-11-19.
  */
-class wallet extends facade.Control
+class tx extends facade.Control
 {
     /**
      * 中间件设置
@@ -22,78 +22,71 @@ class wallet extends facade.Control
     }
 
     /**
-     * 创建钱包
+     * 查询交易记录(钱包)
+     * tx.get.wallet
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
-    async Create(user, paramGold) {
+    async GetWallet(user, paramGold) {
         console.log(paramGold.items);
-        let ret = await remote.execute('wallet.create', paramGold.items);
+        let ret = await remote.execute('tx.get.wallet', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,list: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
 
     /**
-     * 列表钱包
+     * 交易列表(钱包)
+     * tx.list
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async List(user, paramGold) {
         console.log(paramGold.items);
-        let ret = await remote.execute('wallet.list', paramGold.items);
+        let ret = await remote.execute('tx.list', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,list: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
 
     /**
-     * 查询钱包概要
+     * 签署交易(钱包)
+     * tx.sign
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
-    async Info(user, paramGold) {
+    async Sign(user, paramGold) {
         console.log(paramGold.items);
-        let ret = await remote.execute('wallet.info', paramGold.items);
+        let ret = await remote.execute('tx.sign', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,list: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
 
     /**
-     * 转储钱包信息
+     * 创建交易(钱包)
+     * tx.create
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
-    async Dump(user, paramGold) {
+    async Create(user, paramGold) {
         console.log(paramGold.items);
-        let ret = await remote.execute('wallet.dump', paramGold.items);
+        let ret = await remote.execute('tx.create', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,list: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
 
     /**
-     * 导入钱包备份
+     * 根据输入的金额和地址，创建、签署、发送一笔P2PKH类转账交易：
+     * 【钱包-转出功能使用】
+     * tx.send addr value
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
-    async ImportWallet(user, paramGold) {
+    async Send(user, paramGold) {
         console.log(paramGold.items);
-        let ret = await remote.execute('wallet.import', paramGold.items);
+        let ret = await remote.execute('tx.send', paramGold.items);
         console.log(ret);
-        return {code: ReturnCode.Success,list: ret};
+        return {code: ReturnCode.Success,data: ret};
     }
-
-    /**
-     * 备份钱包
-     * @param {*} user 
-     * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
-     */
-    async Backup(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('wallet.backup', paramGold.items);
-        console.log(ret);
-        return {code: ReturnCode.Success,list: ret};
-    }
-
 
 }
 
-exports = module.exports = wallet;
+exports = module.exports = tx;
