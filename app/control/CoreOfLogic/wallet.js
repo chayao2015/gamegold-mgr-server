@@ -22,7 +22,8 @@ class wallet extends facade.Control
     }
 
     /**
-     * 创建一个收款地址：address.create
+     * 创建一个收款地址：address.create 不需要参数
+     * 【用法还不明确】
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
@@ -33,6 +34,19 @@ class wallet extends facade.Control
         return {code: ReturnCode.Success,list: ret};
     }
 
+    /**
+     * 根据输入的金额和地址，创建、签署、发送一笔P2PKH类转账交易：
+     * 【钱包-转出功能使用】
+     * tx.send addr value
+     * @param {*} user 
+     * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
+     */
+    async TxSend(user, paramGold) {
+        console.log(paramGold.items);
+        let ret = await remote.execute('tx.send', paramGold.items);
+        console.log(ret);
+        return {code: ReturnCode.Success,list: ret};
+    }
 
 }
 
