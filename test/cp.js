@@ -7,20 +7,21 @@ const remote = require('./util')
 
 //一组单元测试流程
 describe('游戏（cp）', function() {
-    it.only('cp.list', async () => {
+    it('cp.list', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
-            //所有的控制器都拥有echo方法
+        //所有的控制器都拥有echo方法
             msg = await remote.fetching({func: "cp.List",items:[]});
             remote.isSuccess(msg, true);
         }
     });
 
-    it('cp.create', async () => {
+    it.only('cp.create', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
             //所有的控制器都拥有echo方法
-            msg = await remote.fetching({func: "cp.Create",items:["testfellowX","http://920.cc"]});
+            console.log(encodeURIComponent("守望先锋"));
+            msg = await remote.fetching({func: "cp.Create",items:[encodeURIComponent("守望先锋"),"http://920.cc"]});
             remote.isSuccess(msg, true);
         }
     });
