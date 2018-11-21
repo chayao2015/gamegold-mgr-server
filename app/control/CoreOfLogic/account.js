@@ -27,8 +27,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async List(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('account.list', paramGold.items);
+        console.log("account.List参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('account.list', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -39,8 +44,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Get(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('account.get', paramGold.items);
+        console.log("account.Get参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('account.get', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -51,8 +61,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Create(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('account.create', paramGold.items);
+        console.log("account.Create参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('account.create', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -63,8 +78,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Amount(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('account.amount', paramGold.items);
+        console.log("account.Amount参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('account.amount', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -75,8 +95,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Received(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('account.received', paramGold.items);
+        console.log("account.Receive参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('account.received', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -87,8 +112,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async ListReceived(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('account.listreceived', paramGold.items);
+        console.log("account.ListReceived参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('account.listreceived', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -99,8 +129,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async BalanceConfirmed(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('balance.confirmed', paramGold.items);
+        console.log("account.BalanceConfirmed参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('balance.confirmed', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -111,8 +146,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async BalanceAll(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('balance.all', paramGold.items);
+        console.log("account.BalanceAll参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('balance.all', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -123,8 +163,13 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async BalanceUnconfirmed(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('balance.unconfirmed', paramGold.items);
+        console.log("account.BalanceUnconfirmed参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('balance.unconfirmed', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }

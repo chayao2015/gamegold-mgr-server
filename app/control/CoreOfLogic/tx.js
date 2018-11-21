@@ -28,8 +28,13 @@ class tx extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async GetWallet(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('tx.get.wallet', paramGold.items);
+        console.log("tx.GetWallet参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('tx.get.wallet', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -41,8 +46,13 @@ class tx extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async List(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('tx.list', paramGold.items);
+        console.log("tx.List参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('tx.list', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -54,8 +64,13 @@ class tx extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Sign(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('tx.sign', paramGold.items);
+        console.log("tx.sign参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('tx.sign', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -67,8 +82,13 @@ class tx extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Create(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('tx.create', paramGold.items);
+        console.log("tx.Create参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('tx.create', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -81,8 +101,13 @@ class tx extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Send(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('tx.send', paramGold.items);
+        console.log("tx.Send参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('tx.send', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }

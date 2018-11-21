@@ -28,13 +28,11 @@ class cp extends facade.Control
      */
     async Create(user, paramGold) {
         console.log("cp.Create参数串：");
-        console.log(paramGold);
         let paramArray=paramGold.items;
-        console.log(typeof(paramArray));
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);
         }
-        console.log(typeof(paramArray));
+        console.log(paramArray);
         let ret = await remote.execute('cp.create', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
@@ -46,8 +44,13 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Change(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('cp.change', paramGold.items);
+        console.log("cp.Change参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('cp.change', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -58,8 +61,13 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async ById(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('cp.ById', paramGold.items);
+        console.log("cp.ById参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('cp.ById', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -70,8 +78,13 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async ByName(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('cp.ByName', paramGold.items);
+        console.log("cp.ByName参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('cp.ByName', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -82,8 +95,13 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async List(user, paramGold) {
-        console.log(paramGold.items);
-        let ret = await remote.execute('cp.list', paramGold.items);
+        console.log("cp.list参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('cp.list', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
