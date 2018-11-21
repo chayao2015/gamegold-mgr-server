@@ -67,7 +67,7 @@ class cp extends facade.Control
             paramArray=eval(paramArray);
         }
         console.log(paramArray);
-        let ret = await remote.execute('cp.ById', paramArray);
+        let ret = await remote.execute('cp.byId', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
@@ -84,7 +84,7 @@ class cp extends facade.Control
             paramArray=eval(paramArray);
         }
         console.log(paramArray);
-        let ret = await remote.execute('cp.ByName', paramArray);
+        let ret = await remote.execute('cp.byName', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
