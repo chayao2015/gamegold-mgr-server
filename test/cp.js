@@ -21,7 +21,7 @@ describe('游戏（cp）', function() {
         if(remote.isSuccess(msg)) {
             //所有的控制器都拥有echo方法
             console.log(encodeURIComponent("守望先锋"));
-            msg = await remote.fetching({func: "cp.Create",items:[encodeURIComponent("守望先锋"),"http://920.cc"]});
+            msg = await remote.fetching({func: "cp.Create",items:["swxf1123","http://920.cc"]});
             remote.isSuccess(msg, true);
         }
     });
