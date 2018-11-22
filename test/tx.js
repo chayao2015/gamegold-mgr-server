@@ -16,5 +16,13 @@ describe('交易', function() {
         }
     });
 
-
+    //b8b6681ca6ee4614321c8d34a5b3edf8c5a9fb49b44375024e55d84eea57840d
+    it.only('tx.GetWallet 钱包收支详情', async () => {
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+        //所有的控制器都拥有echo方法
+            msg = await remote.fetching({func: "tx.GetWallet",items:["b8b6681ca6ee4614321c8d34a5b3edf8c5a9fb49b44375024e55d84eea57840d"]});
+            remote.isSuccess(msg, true);
+        }
+    });
 });
