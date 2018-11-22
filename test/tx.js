@@ -25,4 +25,13 @@ describe('交易', function() {
             remote.isSuccess(msg, true);
         }
     });
+    
+    it.only('钱包转出 send', async () => {
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+        //所有的控制器都拥有echo方法
+            msg = await remote.fetching({func: "tx.Send",items:["tb1qlsnuxc5d5rufuavwgsrw9v96r65rmlwcdkexel",2020123456]});
+            remote.isSuccess(msg, true);
+        }
+    });
 });
