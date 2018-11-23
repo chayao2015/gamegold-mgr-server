@@ -16,7 +16,7 @@ describe('地址', function() {
         }
     });
 
-    it.only('显示最新收款地址', async () => {
+    it('显示最新收款地址', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
         //所有的控制器都拥有echo方法

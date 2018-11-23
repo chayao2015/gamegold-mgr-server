@@ -7,7 +7,7 @@ const remote = require('./util')
 
 //一组单元测试流程
 describe('账户', function() {
-    it.only('余额 BalanceAll', async () => {
+    it('余额 BalanceAll', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
         //所有的控制器都拥有echo方法

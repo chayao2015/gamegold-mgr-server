@@ -17,7 +17,7 @@ describe('交易', function() {
     });
 
     //b8b6681ca6ee4614321c8d34a5b3edf8c5a9fb49b44375024e55d84eea57840d
-    it.only('tx.GetWallet 钱包收支详情', async () => {
+    it('tx.GetWallet 钱包收支详情', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
         //所有的控制器都拥有echo方法
@@ -26,7 +26,7 @@ describe('交易', function() {
         }
     });
     
-    it.only('钱包转出 send', async () => {
+    it('钱包转出 send', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
         //所有的控制器都拥有echo方法
