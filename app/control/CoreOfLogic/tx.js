@@ -97,6 +97,7 @@ class tx extends facade.Control
      * 根据输入的金额和地址，创建、签署、发送一笔P2PKH类转账交易：
      * 【钱包-转出功能使用】
      * tx.send addr value
+     * 目标地址、尘
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */

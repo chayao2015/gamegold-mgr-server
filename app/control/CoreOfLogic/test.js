@@ -71,7 +71,7 @@ class test extends facade.Control
     List(user, objData) {
         let muster = facade.GetMapping(101) //得到 Mapping 对象
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-            .orderby('id', 'desc') //根据id字段倒叙排列
+            .orderby('item', 'desc') //根据id字段倒叙排列
             .paginate(5, objData.id, ['id', 'item']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
         let $data = {items:{}};

@@ -6,23 +6,26 @@
 const remote = require('./util')
 
 //一组单元测试流程
-describe('游戏（cp）', function() {
-    it('cp.list', async () => {
+describe('钱包', function() {
+    it('钱包信息 wallet.info', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
         //所有的控制器都拥有echo方法
-            msg = await remote.fetching({func: "cp.List",items:[]});
+            msg = await remote.fetching({func: "wallet.Info",items:[]});
             remote.isSuccess(msg, true);
         }
     });
 
-    it('cp.create', async () => {
+    it('钱包备份', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
-            //所有的控制器都拥有echo方法
-            console.log(encodeURIComponent("守望先锋"));
-            msg = await remote.fetching({func: "cp.Create",items:["swxf1123","http://920.cc"]});
+        //所有的控制器都拥有echo方法
+            let ran=Math.random()*100000000 | 0;
+            console.log(ran);
+            msg = await remote.fetching({func: "wallet.Backup",items:['walletbackup'+ran]});
             remote.isSuccess(msg, true);
         }
     });
+
+
 });
