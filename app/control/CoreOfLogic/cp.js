@@ -90,6 +90,25 @@ class cp extends facade.Control
     }
 
     /**
+     * 查看单个记录
+     * @param {*} user 
+     * @param {*} objData 
+     */
+    Retrieve(user, objData) {
+        console.log("控制器添加日志：");
+        console.log(objData.id);
+        //根据上行id查找test表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
+        let cp = facade.GetObject(102, parseInt(objData.id));
+        console.log(cp);
+        if(!!cp) {
+            return {code: ReturnCode.Success, 
+                data: {cp_id:cp.getAttr('cp_id'),cp_name:cp.getAttr('cp_name')}  
+            };
+        }
+        return {code: -1};
+    }
+
+    /**
      * 查询系统中现有的所有CP列表：cp.list
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组

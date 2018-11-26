@@ -5,7 +5,7 @@
 
 const remote = require('./util')
 
-describe.only('CURD', function() {
+describe('CURD', function() {
     this.beforeEach(async () => {
         await remote.login({openid: `${Math.random()*1000000000 | 0}`});
     });
@@ -30,7 +30,7 @@ describe.only('CURD', function() {
         console.log(msg);
     });
 
-    it('列表', async () => {
+    it.only('列表', async () => {
         let msg = await remote.fetching({func: "test.List"});
         Object.values(msg.data.items).map(item => {
             console.log(item);
