@@ -20,11 +20,24 @@ class CpEntity extends BaseEntity
     /**
      * 创建记录时的钩子函数
      */
-    static async onCreate(cp_id,cp_name) {
+    static async onCreate(cp_id,cp_name,cp_url,wallet_addr,cp_type,develop_name,
+        cp_desc,cp_version,picture_url,cp_state,publish_time,audit_time,online_time,offline_time) {
         try{
             let it = await Cp().create({
                 'cp_id': cp_id,
                 'cp_name': cp_name,
+                'cp_url': cp_url,
+                'wallet_addr': wallet_addr,
+                'cp_type': cp_type,
+                'develop_name': develop_name,
+                'cp_desc': cp_desc,
+                'cp_version': cp_version,
+                'picture_url': picture_url,
+                'cp_state': cp_state,
+                'publish_time': publish_time,
+                'audit_time': audit_time,
+                'online_time': online_time,
+                'offline_time':offline_time,
             });
             await it.save();
     

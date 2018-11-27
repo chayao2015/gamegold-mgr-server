@@ -22,6 +22,34 @@ class cp extends facade.Control
     }
 
     /**
+     * 增加数据库记录。
+     * 此方法被从页面入口的Create方法所调用
+     * @param {*} user 
+     * @param {*} objData 
+     */
+    async CreateRecord(user, objData) {
+        let cp = await facade.GetMapping(102).Create(
+            objData.cp_id,
+            objData.cp_name,
+            objData.cp_url,
+            objData.wallet_addr,
+            objData.cp_type,
+            objData.develop_name,
+            objData.cp_desc,
+            objData.cp_version,
+            objData.picture_url,
+            objData.cp_state,
+            objData.publish_time,
+            objData.audit_time,
+            objData.online_time,
+            objData.offline_time,
+        );
+        //console.log("执行创建成功了吗？");
+        console.log({code: ReturnCode.Success});
+        return {code: ReturnCode.Success};
+    }
+    /**
+     * 页面入口
      * CP注册指令：cp.create "name" "url" ["ip"]
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
@@ -102,7 +130,23 @@ class cp extends facade.Control
         console.log(cp);
         if(!!cp) {
             return {code: ReturnCode.Success, 
-                data: {cp_id:cp.getAttr('cp_id'),cp_name:cp.getAttr('cp_name')}  
+                data: {
+                    cp_id:cp.getAttr('cp_id'),
+                    cp_name:cp.getAttr('cp_name'),
+                    cp_url: cp.getAttr('cp_url'),
+                    wallet_addr: cp.getAttr('wallet_addr'),
+                    cp_type: cp.getAttr('cp_type'),
+                    develop_name: cp.getAttr('develop_name'),
+                    cp_desc: cp.getAttr('cp_desc'),
+                    cp_version: cp.getAttr('cp_version'),
+                    picture_url: cp.getAttr('picture_url'),
+                    cp_state: cp.getAttr('cp_state'),
+                    publish_time: cp.getAttr('publish_time'),
+                    audit_time: cp.getAttr('audit_time'),
+                    online_time: cp.getAttr('online_time'),
+                    offline_time: cp.getAttr('offline_time'),
+                },
+
             };
         }
         return {code: -1};

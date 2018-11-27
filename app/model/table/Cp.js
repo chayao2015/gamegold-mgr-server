@@ -11,6 +11,18 @@ let Cp = (db, sa, pwd) => seqconn.seqConnector(db, sa, pwd).define(
     {
         cp_id: Sequelize.STRING,
         cp_name: Sequelize.STRING,
+        cp_url: Sequelize.STRING,
+        wallet_addr: Sequelize.STRING,
+        cp_type: Sequelize.STRING,
+        develop_name: Sequelize.STRING,
+        cp_desc: Sequelize.STRING,
+        cp_version: Sequelize.STRING,
+        picture_url: Sequelize.STRING,
+        cp_state: Sequelize.INTEGER,
+        publish_time: Sequelize.INTEGER,
+        audit_time: Sequelize.INTEGER,
+        online_time: Sequelize.INTEGER,
+        offline_time: Sequelize.INTEGER,
     },
     {
         'timestamps': false,    // 是否需要增加createdAt、updatedAt、deletedAt字段
