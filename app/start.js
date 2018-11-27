@@ -26,7 +26,8 @@ facade.boot({
     env: env,
     //指示加载自定义数据库表
     loading: [
-        101,        
+        101,
+        102,        
     ],
     //设置静态资源映射
     static: [['/client/', './web/client']], 

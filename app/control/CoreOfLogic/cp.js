@@ -20,8 +20,71 @@ class cp extends facade.Control
     get middleware() {
         return ['parseParams', 'commonHandle'];
     }
-
     /**
+     * 删除记录
+     * @param {*} user 
+     * @param {*} objData 
+     */
+    DeleteRecord(user, objData) {
+        facade.GetMapping(102).Delete(objData.id, true);
+        return {code: ReturnCode.Success};
+    }
+    /**
+     * 修改数据库记录
+     * @param {*} user 
+     * @param {*} objData 
+     */
+    UpdateRecord(user, objData) {
+        let cp = facade.GetObject(102, objData.id);
+        if(!!cp) {
+            //需要针对各个属性增加为null的判断；如果为null的情况下，则
+            cp.setAttr('cp_id',objData.cp_id);
+            cp.setAttr('cp_name',objData.cp_name);
+            cp.setAttr('cp_url',objData.cp_url);
+            cp.setAttr('wallet_addr',objData.wallet_addr);
+            cp.setAttr('cp_type',objData.cp_type);
+            cp.setAttr('develop_name',objData.develop_name);
+            cp.setAttr('cp_desc',objData.cp_desc);
+            cp.setAttr('cp_version',objData.cp_version);
+            cp.setAttr('cp_version',objData.cp_version);
+            cp.setAttr('cp_state',objData.cp_state);
+            cp.setAttr('publish_time',objData.publish_time);
+            cp.setAttr('audit_time',objData.audit_time);
+            cp.setAttr('online_time',objData.online_time);
+            cp.setAttr('offline_time',objData.offline_time);
+            return {code: ReturnCode.Success};
+        }
+        return {code: -1};
+    }
+    /**
+     * 增加数据库记录。
+     * 此方法被从页面入口的Create方法所调用
+     * @param {*} user 
+     * @param {*} objData 
+     */
+    async CreateRecord(user, objData) {
+        let cp = await facade.GetMapping(102).Create(
+            objData.cp_id,
+            objData.cp_name,
+            objData.cp_url,
+            objData.wallet_addr,
+            objData.cp_type,
+            objData.develop_name,
+            objData.cp_desc,
+            objData.cp_version,
+            objData.picture_url,
+            objData.cp_state,
+            objData.publish_time,
+            objData.audit_time,
+            objData.online_time,
+            objData.offline_time,
+        );
+        //console.log("执行创建成功了吗？");
+        console.log({code: ReturnCode.Success});
+        return {code: ReturnCode.Success};
+    }
+    /**
+     * 页面入口
      * CP注册指令：cp.create "name" "url" ["ip"]
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
@@ -87,6 +150,41 @@ class cp extends facade.Control
         let ret = await remote.execute('cp.byName', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
+    }
+
+    /**
+     * 查看单个记录
+     * @param {*} user 
+     * @param {*} objData 
+     */
+    Retrieve(user, objData) {
+        console.log("控制器添加日志：");
+        console.log(objData.id);
+        //根据上行id查找test表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
+        let cp = facade.GetObject(102, parseInt(objData.id));
+        console.log(cp);
+        if(!!cp) {
+            return {code: ReturnCode.Success, 
+                data: {
+                    cp_id:cp.getAttr('cp_id'),
+                    cp_name:cp.getAttr('cp_name'),
+                    cp_url: cp.getAttr('cp_url'),
+                    wallet_addr: cp.getAttr('wallet_addr'),
+                    cp_type: cp.getAttr('cp_type'),
+                    develop_name: cp.getAttr('develop_name'),
+                    cp_desc: cp.getAttr('cp_desc'),
+                    cp_version: cp.getAttr('cp_version'),
+                    picture_url: cp.getAttr('picture_url'),
+                    cp_state: cp.getAttr('cp_state'),
+                    publish_time: cp.getAttr('publish_time'),
+                    audit_time: cp.getAttr('audit_time'),
+                    online_time: cp.getAttr('online_time'),
+                    offline_time: cp.getAttr('offline_time'),
+                },
+
+            };
+        }
+        return {code: -1};
     }
 
     /**
