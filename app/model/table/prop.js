@@ -11,10 +11,25 @@ let {Sequelize, seqconn} = facade.tools;
 let Prop = (db, sa, pwd) => seqconn.seqConnector(db, sa, pwd).define(
     'Prop',
     {
-        item: Sequelize.STRING,
+        'id': Sequelize.INTEGER,
+        'cp_name': Sequelize.STRING,
+        'propsName': Sequelize.STRING,
+        'propsType': Sequelize.INTEGER,
+        'cid': Sequelize.STRING,
+        'propsDesc': Sequelize.STRING,
+        'iconUrl': Sequelize.STRING,
+        'iconPreview': Sequelize.STRING,
+        'pid': Sequelize.STRING,
+        'oid': Sequelize.STRING,
+        'oper': Sequelize.STRING,
+        'prev': Sequelize.STRING,
+        'current': Sequelize.STRING,
+        'gold':Sequelize.STRING,
+        'status':Sequelize.INTEGER,
+        'cp':Sequelize.STRING,
     },
     {
-        'timestamps': true,    // 是否需要增加createdAt、updatedAt、deletedAt字段
+        'timestamps': false,    // 是否需要增加createdAt、updatedAt、deletedAt字段
         'tableName': 'prop',    // 实际使用的表名
         'paranoid': false       // true表示删除数据时不会进行物理删除，而是设置deletedAt为当前时间
     }
