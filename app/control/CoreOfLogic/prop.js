@@ -2,7 +2,7 @@
  * @Author: jinghh 
  * @Date: 2018-11-22 11:38:53 
  * @Last Modified by: jinghh
- * @Last Modified time: 2018-11-27 15:58:09
+ * @Last Modified time: 2018-11-27 16:31:13
  */
 
 
@@ -47,6 +47,28 @@ class prop extends facade.Control
         let ret = await remote.execute('prop.list', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
+    }
+
+    
+    /**
+     * 查看单个记录
+     * @param {*} objData 
+     */
+    Retrieve(objData) {
+        console.log("控制器添加日志：");
+        console.log(objData.id);
+        //根据上行id查找test表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
+        let prop = facade.GetObject(102, objData.id);
+        console.log(prop);
+        if(!!prop) {
+            return {code: ReturnCode.Success, 
+                data: {
+                    id:prop.getAttr('id'),
+                },
+
+            };
+        }
+        return {code: -1};
     }
     
 }

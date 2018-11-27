@@ -28,6 +28,7 @@ facade.boot({
     loading: [
         101,
         102,        
+        103,        
     ],
     //设置静态资源映射
     static: [['/client/', './web/client']], 
