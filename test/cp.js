@@ -25,8 +25,8 @@ describe('游戏（cp）', function() {
             //     console.log(item);
             // });
             // let oArray = Object.keys(msg.items).map(key=> msg.items[key])
-            console.log(msg);
-            console.log(moment(1200000).format('YYYY-MM-DD HH:mm:ss'))
+            // console.log(msg);
+            // console.log(moment(1200000).format('YYYY-MM-DD HH:mm:ss'))
         }
     });
 
