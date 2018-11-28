@@ -15,6 +15,19 @@ describe('游戏（cp）', function() {
             remote.isSuccess(msg, true);
         }
     });
+    
+    it.only('cp.listRecord 列表', async () => {
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+            let msg = await remote.fetching({func: "cp.ListRecord"});
+            //console.log(...msg.items.values());
+            // let oArray= Object.values(msg.items).map(item => {
+            //     console.log(item);
+            // });
+            // let oArray = Object.keys(msg.items).map(key=> msg.items[key])
+            console.log(msg);
+        }
+    });
 
     it('cp.create', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
