@@ -2,7 +2,7 @@
  * @Author: jinghh 
  * @Date: 2018-11-26 23:07:21 
  * @Last Modified by: jinghh
- * @Last Modified time: 2018-11-27 17:07:07
+ * @Last Modified time: 2018-11-28 16:31:33
  */
 const facade = require('gamecloud');
 let {Sequelize, seqconn} = facade.tools;
