@@ -11,13 +11,12 @@ let {Sequelize, seqconn} = facade.tools;
 let Prop = (db, sa, pwd) => seqconn.seqConnector(db, sa, pwd).define(
     'Prop',
     {
-        'id': Sequelize.INTEGER,
-        'propsName': Sequelize.STRING,
-        'propsType': Sequelize.INTEGER,
+        'props_name': Sequelize.STRING,
+        'props_type': Sequelize.INTEGER,
         'cid': Sequelize.STRING,
-        'propsDesc': Sequelize.STRING,
-        'iconUrl': Sequelize.STRING,
-        'iconPreview': Sequelize.STRING,
+        'props_desc': Sequelize.STRING,
+        'icon_url': Sequelize.STRING,
+        'icon_preview': Sequelize.STRING,
         'pid': Sequelize.STRING,
         'oid': Sequelize.STRING,
         'oper': Sequelize.STRING,

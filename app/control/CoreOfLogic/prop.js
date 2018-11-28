@@ -54,9 +54,10 @@ class prop extends facade.Control
      * 查看单个记录
      * @param {*} objData 
      */
-    Retrieve(objData) {
-        console.log("控制器添加日志：");
+    Retrieve(user,objData) {
+        console.log("prop.Retrieve：");
         console.log(objData.id);
+        console.log("惊喜？");
         //根据上行id查找test表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
         let prop = facade.GetObject(103, objData.id);
         console.log(prop);

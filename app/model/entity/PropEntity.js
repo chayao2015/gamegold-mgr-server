@@ -24,12 +24,12 @@ class PropEntity extends BaseEntity
         iconPreview,pid,oid,oper,prev,current,gold,status,cp) {
         try{
             let it = await Prop().create({
-                'propsName': propsName,
-                'propsType': propsType,
+                'props_name': propsName,
+                'props_type': propsType,
                 'cid': cid,
-                'propsDesc': propsDesc,
-                'iconUrl': iconUrl,
-                'iconPreview': iconPreview,
+                'props_desc': propsDesc,
+                'icon_url': iconUrl,
+                'icon_preview': iconPreview,
                 'pid': pid,
                 'oid': oid,
                 'oper': oper,
