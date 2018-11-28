@@ -12,7 +12,6 @@ let Prop = (db, sa, pwd) => seqconn.seqConnector(db, sa, pwd).define(
     'Prop',
     {
         'id': Sequelize.INTEGER,
-        'cp_name': Sequelize.STRING,
         'propsName': Sequelize.STRING,
         'propsType': Sequelize.INTEGER,
         'cid': Sequelize.STRING,

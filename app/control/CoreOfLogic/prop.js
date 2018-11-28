@@ -58,7 +58,7 @@ class prop extends facade.Control
         console.log("控制器添加日志：");
         console.log(objData.id);
         //根据上行id查找test表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
-        let prop = facade.GetObject(102, objData.id);
+        let prop = facade.GetObject(103, objData.id);
         console.log(prop);
         if(!!prop) {
             return {code: ReturnCode.Success, 
