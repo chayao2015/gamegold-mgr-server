@@ -212,10 +212,14 @@ class cp extends facade.Control
      * @param {*} objData 查询及翻页参数，等整体调通以后再细化。
      */
     ListRecord(user, objData) {
+        if (objData==null) {
+            objData={};
+        }
+        console.log("ListRecord:"+JSON.stringify(objData));
         let muster = facade.GetMapping(102) //得到 Mapping 对象
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
             .orderby('id', 'desc') //根据id字段倒叙排列
-            .paginate(10, objData.id, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
+            .paginate(10, objData.currentPage, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
         let $data = {items:{},list:[],pagination:{}};
         //扩展分页器对象
