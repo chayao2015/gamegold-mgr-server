@@ -189,6 +189,7 @@ class cp extends facade.Control
 
     /**
      * 查询系统中现有的所有CP列表：cp.list
+     * 20181128:此方法暂不使用。
      * @param {*} user 
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
@@ -204,7 +205,30 @@ class cp extends facade.Control
         return {code: ReturnCode.Success,data: ret};
     }
 
-    
+    /**
+     * 从数据库中获取列表
+     * 客户端直接调用此方法
+     * @param {*} user 
+     * @param {*} objData 查询及翻页参数，等整体调通以后再细化。
+     */
+    ListRecord(user, objData) {
+        let muster = facade.GetMapping(102) //得到 Mapping 对象
+            .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
+            .orderby('publish_time', 'desc') //根据id字段倒叙排列
+            .paginate(5, objData.id, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
+        
+        let $data = {items:{}};
+        $data.total = muster.pageNum;
+        $data.page = muster.pageCur;
+
+        let $idx = (muster.pageCur-1) * muster.pageSize;
+        for(let $value of muster.records()){
+            $idx++ ;
+            $data.items[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_name: $value['cp_name'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};
+        }
+
+        return {code: ReturnCode.Success, data: $data};
+    }
 }
 
 exports = module.exports = cp;
