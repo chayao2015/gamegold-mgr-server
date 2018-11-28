@@ -215,19 +215,26 @@ class cp extends facade.Control
         let muster = facade.GetMapping(102) //得到 Mapping 对象
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
             .orderby('publish_time', 'desc') //根据id字段倒叙排列
-            .paginate(5, objData.id, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
+            .paginate(10, objData.id, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
-        let $data = {items:{}};
+        let $data = {items:{},list:[],pagination:{}};
+        //扩展分页器对象
+        $data.pagination={"total":muster.pageNum*10,"pageSize":10,"current":muster.pageCur};
         $data.total = muster.pageNum;
         $data.page = muster.pageCur;
 
         let $idx = (muster.pageCur-1) * muster.pageSize;
+         $idx=$idx+5;
         for(let $value of muster.records()){
-            $idx++ ;
             $data.items[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_name: $value['cp_name'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};
+            $idx++ ;
         }
 
-        return {code: ReturnCode.Success, data: $data};
+        //转化并设置数组属性
+        $data.list= Object.keys($data.items).map(key=> $data.items[key]);
+
+        // let ret=$data.list;
+        return $data;
     }
 }
 
