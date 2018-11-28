@@ -2,7 +2,7 @@
  * 单元测试：注册登录、简单应答、推送
  * Creted by liub 2017.3.24
  */
-
+let moment  = require('moment');
 const remote = require('./util')
 
 //一组单元测试流程
@@ -26,6 +26,7 @@ describe('游戏（cp）', function() {
             // });
             // let oArray = Object.keys(msg.items).map(key=> msg.items[key])
             console.log(msg);
+            console.log(moment(1200000).format('YYYY-MM-DD HH:mm:ss'))
         }
     });
 

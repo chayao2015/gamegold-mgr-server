@@ -214,7 +214,7 @@ class cp extends facade.Control
     ListRecord(user, objData) {
         let muster = facade.GetMapping(102) //得到 Mapping 对象
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-            .orderby('publish_time', 'desc') //根据id字段倒叙排列
+            .orderby('id', 'desc') //根据id字段倒叙排列
             .paginate(10, objData.id, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
         let $data = {items:{},list:[],pagination:{}};
