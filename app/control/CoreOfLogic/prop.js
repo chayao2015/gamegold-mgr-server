@@ -65,6 +65,8 @@ class prop extends facade.Control
             return {code: ReturnCode.Success, 
                 data: {
                     id:prop.getAttr('id'),
+                    props_name:prop.getAttr('props_name'),//其他属性类似增加
+                    //propsName ..如果你不爽属性名的下划线，可在最后输出的时候改。内部一定要用下划线连接小写的风格
                 },
 
             };
