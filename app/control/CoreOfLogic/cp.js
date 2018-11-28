@@ -240,6 +240,25 @@ class cp extends facade.Control
         // let ret=$data.list;
         return $data;
     }
+
+    /**
+     * 从数据库中获取所有列表
+     * 客户端直接调用此方法
+     */
+    ListAllRecord() {
+        let resList = facade.GetMapping(102) //得到 Mapping 对象
+        .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
+        .orderby('id', 'desc') //根据id字段倒叙排列
+        .records(['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); 
+        let $data = {};
+        let $idx = 0;
+        for(let $value of resList){
+            $data[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_name: $value['cp_name'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};;
+            $idx++;
+
+        }
+        return {code: ReturnCode.Success, data: $data};
+    }
 }
 
 exports = module.exports = cp;
