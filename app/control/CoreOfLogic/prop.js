@@ -2,7 +2,7 @@
  * @Author: jinghh 
  * @Date: 2018-11-22 11:38:53 
  * @Last Modified by: jinghh
- * @Last Modified time: 2018-11-27 16:31:13
+ * @Last Modified time: 2018-11-28 17:34:16
  */
 
 
@@ -48,25 +48,45 @@ class prop extends facade.Control
         console.log(ret);
         return {code: ReturnCode.Success,data: ret};
     }
-
+    
     
     /**
+     * 获取本地道具列表
+     * @returns
+     * @memberof prop
+     */
+    LocalList() {
+        let resList = facade.GetMapping(103) //得到 Mapping 对象
+            .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
+            .orderby('id', 'desc') //根据id字段倒叙排列
+            .records( ['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview'])
+        let $data = {};
+        for(let $value of resList){
+            $data[$value['pid']] = $value;
+        }
+        return {code: ReturnCode.Success, data: $data};
+    }
+    /**
      * 查看单个记录
+     * @param {*} user 
      * @param {*} objData 
      */
-    Retrieve(user,objData) {
-        console.log("prop.Retrieve：");
-        console.log(objData.id);
-        console.log("惊喜？");
-        //根据上行id查找test表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
-        let prop = facade.GetObject(103, objData.id);
-        console.log(prop);
+    LocalDetail(user, objData) {
+        //根据上行id查找表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
+        let prop = facade.GetObject(103, parseInt(objData.id));
         if(!!prop) {
-            return {code: ReturnCode.Success, 
+            return {
+                code: ReturnCode.Success, 
                 data: {
                     id:prop.getAttr('id'),
-                    props_name:prop.getAttr('props_name'),//其他属性类似增加
-                    //propsName ..如果你不爽属性名的下划线，可在最后输出的时候改。内部一定要用下划线连接小写的风格
+                    props_name:prop.getAttr('props_name'),
+                    props_type:prop.getAttr('props_type'),
+                    cid:prop.getAttr('cid'),
+                    props_desc:prop.getAttr('props_desc'),
+                    pid:prop.getAttr('pid'),
+                    oid:prop.getAttr('oid'),
+                    icon_url:prop.getAttr('icon_url'),
+                    icon_preview:prop.getAttr('icon_preview'),
                 },
 
             };

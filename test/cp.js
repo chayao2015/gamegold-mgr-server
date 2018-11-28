@@ -26,7 +26,7 @@ describe('游戏（cp）', function() {
         }
     });
     
-    it.only('cp.Retrieve 获取指定id的记录', async () => { 
+    it('cp.Retrieve 获取指定id的记录', async () => { 
             let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
             if(remote.isSuccess(msg)) {
                 console.log(await remote.fetching({func: "cp.Retrieve", id: 2}));
