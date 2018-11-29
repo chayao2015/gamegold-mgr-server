@@ -221,9 +221,13 @@ class cp extends facade.Control
         if (Number.isNaN(parseInt(currentPage))) {
             currentPage=1;
         }
+        //构造查询条件
+        //..todo
 
-        let muster = facade.GetMapping(102) //得到 Mapping 对象
+        //得到 Mapping 对象
+        let muster = facade.GetMapping(102) 
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
+            .where([['id','==',19]])
             .orderby('id', 'desc') //根据id字段倒叙排列
             .paginate(10, currentPage, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
