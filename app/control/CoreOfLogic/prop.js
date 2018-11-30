@@ -2,7 +2,7 @@
  * @Author: jinghh 
  * @Date: 2018-11-22 11:38:53 
  * @Last Modified by: jinghh
- * @Last Modified time: 2018-11-28 17:34:16
+ * @Last Modified time: 2018-11-30 15:56:28
  */
 
 
@@ -93,7 +93,47 @@ class prop extends facade.Control
         }
         return {code: -1};
     }
-    
+    /**
+    * 道具保存本地
+    * @param {*} user
+    * @param {*} paramGold
+    * @returns
+    * @memberof prop
+    */
+    CreateLocal(user, paramGold) {
+        let insert = facade.GetMapping(103).Create( 
+            paramGold.props_name,
+            paramGold.props_type,
+            paramGold.cid,
+            paramGold.props_desc,
+            paramGold.icon_url,
+            paramGold.icon_preview,
+            paramGold.pid,
+            paramGold.oid,
+            paramGold.oper,
+            paramGold.prev,
+            paramGold.current,
+            paramGold.gold,
+            paramGold.status,
+            paramGold.cp);
+        return {code: ReturnCode.Success,data: insert};
+    }
+
+   /**
+    * 道具上链
+    * @param {*} user
+    * @param {*} paramGold
+    * @returns
+    * @memberof prop
+    */
+   async CreatePropRemote(user, paramGold) {
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        let ret = await remote.execute('prop.create', paramArray);
+        return {code: ReturnCode.Success,data: ret};
+    }
 }
 
 exports = module.exports = prop;
