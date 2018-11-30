@@ -67,4 +67,13 @@ describe('游戏（cp）', function() {
             offline_time:5,
         });
     });
+
+    it.only('获取外部数据记录', async () => { 
+        let fetch=require("node-fetch");
+        fetch('http://localhost:9101/client/cp1.json')
+            .then(response => response.json())
+            .then(data => console.log(data))
+
+    }
+);
 });
