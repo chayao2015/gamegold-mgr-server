@@ -11,6 +11,7 @@ let Cp = (db, sa, pwd) => seqconn.seqConnector(db, sa, pwd).define(
     {
         cp_id: Sequelize.STRING,
         cp_name: Sequelize.STRING,
+        cp_text: Sequelize.STRING,
         cp_url: Sequelize.STRING,
         wallet_addr: Sequelize.STRING,
         cp_type: Sequelize.STRING,

@@ -40,6 +40,7 @@ class cp extends facade.Control
             //需要针对各个属性增加为null的判断；如果为null的情况下，则
             cp.setAttr('cp_id',objData.cp_id);
             cp.setAttr('cp_name',objData.cp_name);
+            cp.setAttr('cp_text',objData.cp_text);
             cp.setAttr('cp_url',objData.cp_url);
             cp.setAttr('wallet_addr',objData.wallet_addr);
             cp.setAttr('cp_type',objData.cp_type);
@@ -66,6 +67,7 @@ class cp extends facade.Control
         let cp = await facade.GetMapping(102).Create(
             objData.cp_id,
             objData.cp_name,
+            objData.cp_text,
             objData.cp_url,
             objData.wallet_addr,
             objData.cp_type,
@@ -168,6 +170,7 @@ class cp extends facade.Control
                 data: {
                     cp_id:cp.getAttr('cp_id'),
                     cp_name:cp.getAttr('cp_name'),
+                    cp_text:cp.getAttr('cp_text'),
                     cp_url: cp.getAttr('cp_url'),
                     wallet_addr: cp.getAttr('wallet_addr'),
                     cp_type: cp.getAttr('cp_type'),
@@ -215,21 +218,43 @@ class cp extends facade.Control
         if (objData==null) {
             objData={};
         }
-        console.log("ListRecord:"+JSON.stringify(objData));
         let currentPage=objData.currentPage;
         console.log(Number.isNaN(parseInt(currentPage)));
         if (Number.isNaN(parseInt(currentPage))) {
             currentPage=1;
         }
         //构造查询条件
-        //..todo
+        //cp_text=3&cp_id=23&cp_type=1&cp_state=2
+        let paramArray=new Array();
+        if (typeof(objData.cp_text) != "undefined" && (objData.cp_text!="")) {
+            console.log(`cp_text 参数: ${objData.cp_text}`);
+            let tmp=['cp_text','==',objData.cp_text];
+            paramArray.push(tmp);
+        }
+        if (typeof(objData.cp_id) != "undefined" && (objData.cp_id!="")) {
+            console.log(`cp_id 参数: ${objData.cp_id}`);
+            let tmp=['cp_id','==',objData.cp_id];
+            paramArray.push(tmp);
+        }
+        if (typeof(objData.cp_type) != "undefined" && (objData.cp_type!="")) {
+            console.log(`cp_type 参数: ${objData.cp_type}`);
+            let tmp=['cp_type','==',objData.cp_type];
+            paramArray.push(tmp);
+        }
+        if (typeof(objData.cp_state) != "undefined" && (objData.cp_state!="")) {
+            console.log(`cp_state 参数: ${objData.cp_state}`);
+            let tmp=['cp_state','==',objData.cp_state];
+            paramArray.push(tmp);
+        }
+        console.log(paramArray);
+
 
         //得到 Mapping 对象
         let muster = facade.GetMapping(102) 
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-            .where([['id','==',19]])
+            .where(paramArray)
             .orderby('id', 'desc') //根据id字段倒叙排列
-            .paginate(10, currentPage, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
+            .paginate(10, currentPage, ['id', 'cp_id','cp_text','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
         let $data = {items:{},list:[],pagination:{}};
         //扩展分页器对象
@@ -240,7 +265,7 @@ class cp extends facade.Control
         let $idx = (muster.pageCur-1) * muster.pageSize;
          $idx=$idx+5;
         for(let $value of muster.records()){
-            $data.items[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_name: $value['cp_name'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};
+            $data.items[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_text: $value['cp_text'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};
             $idx++ ;
         }
 
@@ -259,11 +284,11 @@ class cp extends facade.Control
         let resList = facade.GetMapping(102) //得到 Mapping 对象
         .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
         .orderby('id', 'desc') //根据id字段倒叙排列
-        .records(['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); 
+        .records(['id', 'cp_id','cp_text','cp_type','cp_state','publish_time']); 
         let $data = {};
         let $idx = 0;
         for(let $value of resList){
-            $data[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_name: $value['cp_name'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};;
+            $data[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_text: $value['cp_text'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};;
             $idx++;
 
         }
