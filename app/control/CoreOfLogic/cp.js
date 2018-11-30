@@ -279,20 +279,32 @@ class cp extends facade.Control
     /**
      * 从数据库中获取所有列表
      * 客户端直接调用此方法
+     * 此方法似乎不使用
      */
-    ListAllRecord() {
-        let resList = facade.GetMapping(102) //得到 Mapping 对象
-        .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-        .orderby('id', 'desc') //根据id字段倒叙排列
-        .records(['id', 'cp_id','cp_text','cp_type','cp_state','publish_time']); 
-        let $data = {};
-        let $idx = 0;
-        for(let $value of resList){
-            $data[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_text: $value['cp_text'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};;
-            $idx++;
+    // async ListAllRecord() {
+    //     let resList = facade.GetMapping(102) //得到 Mapping 对象
+    //     .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
+    //     .orderby('id', 'desc') //根据id字段倒叙排列
+    //     .records(['id', 'cp_id','cp_text','cp_type','cp_state','publish_time']); 
+    //     let $data = {};
+    //     let $idx = 0;
+    //     for(let $value of resList){
+    //         $data[$idx] = {id: $value['id'], cp_id: $value['cp_id'],cp_text: $value['cp_text'],cp_type: $value['cp_type'],cp_state: $value['cp_state'],publish_time: $value['publish_time'], rank: $idx};;
+    //         $idx++;
 
-        }
-        return {code: ReturnCode.Success, data: $data};
+    //     }
+    //     return {code: ReturnCode.Success, data: $data};
+    // }
+
+
+    /**
+     * 从外部获取URL
+     */
+    async getGameFromUrl(user, objData) {
+        let fetch=require("node-fetch");
+        let res = await fetch(objData.cp_url, {mode: 'no-cors'});
+        let json= await res.json();//fetch正常返回后才执行
+        return json;//这样就能返回res不用担心异步的问题啦啦啦
     }
 }
 
