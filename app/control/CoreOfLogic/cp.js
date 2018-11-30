@@ -215,19 +215,42 @@ class cp extends facade.Control
         if (objData==null) {
             objData={};
         }
-        console.log("ListRecord:"+JSON.stringify(objData));
+        console.log("ListRecord218:"+JSON.stringify(objData));
         let currentPage=objData.currentPage;
         console.log(Number.isNaN(parseInt(currentPage)));
         if (Number.isNaN(parseInt(currentPage))) {
             currentPage=1;
         }
         //构造查询条件
-        //..todo
+        //cp_name=3&cp_id=23&cp_type=1&cp_state=2
+        let paramArray=new Array();
+        if (typeof(objData.cp_name) != "undefined" && (objData.cp_name!="")) {
+            console.log(`cp_name 参数: ${objData.cp_name}`);
+            let tmp=['cp_name','==',objData.cp_name];
+            paramArray.push(tmp);
+        }
+        if (typeof(objData.cp_id) != "undefined" && (objData.cp_id!="")) {
+            console.log(`cp_id 参数: ${objData.cp_id}`);
+            let tmp=['cp_id','==',objData.cp_id];
+            paramArray.push(tmp);
+        }
+        if (typeof(objData.cp_type) != "undefined" && (objData.cp_type!="")) {
+            console.log(`cp_type 参数: ${objData.cp_type}`);
+            let tmp=['cp_type','==',objData.cp_type];
+            paramArray.push(tmp);
+        }
+        if (typeof(objData.cp_state) != "undefined" && (objData.cp_state!="")) {
+            console.log(`cp_state 参数: ${objData.cp_state}`);
+            let tmp=['cp_state','==',objData.cp_state];
+            paramArray.push(tmp);
+        }
+        console.log(paramArray);
+
 
         //得到 Mapping 对象
         let muster = facade.GetMapping(102) 
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-            .where([['id','==',19]])
+            .where(paramArray)
             .orderby('id', 'desc') //根据id字段倒叙排列
             .paginate(10, currentPage, ['id', 'cp_id','cp_name','cp_type','cp_state','publish_time']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
