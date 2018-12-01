@@ -19,8 +19,14 @@ describe('道具（prop）', function() {
     it('prop.LocalList 获取本地库道具LocalList', async () => { 
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
-            let list = await remote.fetching({func: "prop.LocalList"});
-            console.log(list);
+            let list = await remote.fetching({func: "prop.LocalList",
+            currentPage:1,
+            pageSize:2,
+            props_id:'',
+            props_name:'奥的灰烬',
+            cid:'',
+        });
+         console.log(list);
         }
     }
     );
