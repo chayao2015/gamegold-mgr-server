@@ -1,4 +1,14 @@
 {
-"cp_name" :"ABCDEF21",
-"cp_text" :"英雄无敌"
+"cp_name" :"newcp143423",
+"cp_text" :"英雄无敌",
+"cp_type":"策略游戏",
+"develop_name":"东哥",
+"cp_desc":"这是百谷王开发的兼容版！很棒的！！",
+"cp_version":"V3.2",
+"picture_url":"{\"icon_url\":\"http://121.40.82.216/matrix/ace/assets/avatars/avatar4.png\",\"face_url\":\"http://121.40.82.216/matrix/ace/assets/avatars/avatar4.png\",\"pic_urls\":[\"http://121.40.82.216/matrix/ace/assets/avatars/avatar4.png\",\"http://121.40.82.216/matrix/ace/assets/avatars/avatar4.png\"]}",
+"cp_state":"2",
+"publish_time":"1200000000",
+"audit_time":"1200000000",
+"online_time":"1200000000",
+"offline_time":"1200000000"
 }
