@@ -52,19 +52,49 @@ class prop extends facade.Control
     
     /**
      * 获取本地道具列表
+     * @param {*} objData 
      * @returns
      * @memberof prop
      */
-    LocalList() {
-        let resList = facade.GetMapping(103) //得到 Mapping 对象
-            .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-            .orderby('id', 'desc') //根据id字段倒叙排列
-            .records( ['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview'])
-        let $data = {};
-        for(let $value of resList){
-            $data[$value['pid']] = $value;
+    LocalList(user, objData) {
+        if (objData==null) {
+            objData={};
         }
-        return {code: ReturnCode.Success, data: $data};
+        let pageSize = objData.pageSize || 10;
+        let currentPage = objData.currentPage || 1;
+        let paramArray=new Array();
+        if (typeof(objData.props_id) != "undefined" && (objData.props_id!="")) {
+            paramArray.push(['id','==',parseInt(objData.props_id)]);
+        }
+        if (typeof(objData.props_name) != "undefined" && (objData.props_name!="")) {
+            paramArray.push(['props_name','==',objData.props_name]);
+        }
+        if (typeof(objData.cid) != "undefined" && (objData.cid!="")) {
+            paramArray.push(['cid','==',objData.cid]);
+        }
+        console.log(paramArray);
+        //得到 Mapping 对象
+        let muster = facade.GetMapping(103) 
+            .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
+            .where(paramArray)
+            .orderby('id', 'desc') //根据id字段倒叙排列
+            .paginate(pageSize, currentPage, ['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview']); 
+        
+        let $data = {items:{},list:[],pagination:{}};
+        //扩展分页器对象
+        $data.pagination={"total":muster.data.size,"pageSize":parseInt(pageSize),"current":parseInt(muster.pageCur)};
+        $data.total = muster.data.size;
+        $data.page = muster.pageCur;
+
+        let $idx = (muster.pageCur-1) * muster.pageSize;
+        for(let $value of muster.records()){
+            $data.items[$idx] = {id: $value['id'], props_name: $value['props_name'],props_type: $value['props_type'],cid: $value['cid'],props_desc: $value['props_desc'],
+            pid: $value['pid'], oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],rank: $idx};
+            $idx++ ;
+        }
+        $data.list= Object.keys($data.items).map(key=> $data.items[key]);
+        return $data;
+
     }
     /**
      * 查看单个记录

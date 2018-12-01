@@ -24,12 +24,12 @@ exports.setup = function(options, seedLink) {
 exports.up = function(db) {
   return db.createTable('prop', {
     id: { type: 'int', primaryKey: true, autoIncrement: true},        //主键，本服内用户唯一编号
-    propsName: {type: 'string', length: 200}, 
-    propsType: {type: 'int', length: 11}, 
+    props_name: {type: 'string', length: 200}, 
+    props_type: {type: 'int', length: 11}, 
     cid: {type: 'string', length: 500}, 
-    propsDesc: {type: 'text', length: 0}, 
-    iconUrl: {type: 'string', length: 200}, 
-    iconPreview: {type: 'text', length: 0}, 
+    props_desc: {type: 'text', length: 0}, 
+    icon_url: {type: 'string', length: 200}, 
+    icon_preview: {type: 'text', length: 0}, 
     pid: {type: 'string', length: 200}, 
     oid: {type: 'string', length: 200}, 
     oper: {type: 'string', length: 100}, 
