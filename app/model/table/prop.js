@@ -25,6 +25,10 @@ let Prop = (db, sa, pwd) => seqconn.seqConnector(db, sa, pwd).define(
         'gold':Sequelize.STRING,
         'status':Sequelize.INTEGER,
         'cp':Sequelize.STRING,
+        'stock':Sequelize.INTEGER,
+        'pro_num':Sequelize.INTEGER,
+        'createdAt':Sequelize.DATE,
+        'updatedAt':Sequelize.DATE,
     },
     {
         'timestamps': false,    // 是否需要增加createdAt、updatedAt、deletedAt字段

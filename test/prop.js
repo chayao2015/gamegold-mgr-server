@@ -63,7 +63,11 @@ describe('道具（prop）', function() {
             current:'',
             gold:100000000,
             status:1,
-            cp:'{"cid":"xxxxxxxx-game-gold-boss-xxxxxxxxxxxx","name":"BOSS","url":"920.cc","ip":"*"}'
+            cp:'{"cid":"xxxxxxxx-game-gold-boss-xxxxxxxxxxxx","name":"BOSS","url":"920.cc","ip":"*"}',
+            stock :0,
+            pro_num :0,
+            createdAt :'2018-12-2 16:49:39',
+            updatedAt :'2018-12-2 16:49:46'
         });
             console.log(res);
         }

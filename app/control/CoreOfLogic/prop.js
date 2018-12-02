@@ -78,7 +78,7 @@ class prop extends facade.Control
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
             .where(paramArray)
             .orderby('id', 'desc') //根据id字段倒叙排列
-            .paginate(pageSize, currentPage, ['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview']); 
+            .paginate(pageSize, currentPage, ['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview', 'gold', 'cp', 'stock', 'pro_num']); 
         
         let $data = {items:{},list:[],pagination:{}};
         //扩展分页器对象
@@ -89,7 +89,8 @@ class prop extends facade.Control
         let $idx = (muster.pageCur-1) * muster.pageSize;
         for(let $value of muster.records()){
             $data.items[$idx] = {id: $value['id'], props_name: $value['props_name'],props_type: $value['props_type'],cid: $value['cid'],props_desc: $value['props_desc'],
-            pid: $value['pid'], oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],rank: $idx};
+            pid: $value['pid'], oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],gold: $value['gold'],
+            cp: $value['cp'],stock: $value['stock'],pro_num: $value['pro_num'],rank: $idx};
             $idx++ ;
         }
         $data.list= Object.keys($data.items).map(key=> $data.items[key]);
@@ -117,6 +118,13 @@ class prop extends facade.Control
                     oid:prop.getAttr('oid'),
                     icon_url:prop.getAttr('icon_url'),
                     icon_preview:prop.getAttr('icon_preview'),
+                    gold:prop.getAttr('gold'),
+                    status:prop.getAttr('status'),
+                    cp:prop.getAttr('cp'),
+                    stock:prop.getAttr('stock'),
+                    pro_num:prop.getAttr('pro_num'),
+                    createdAt:prop.getAttr('createdAt'),
+                    updatedAt:prop.getAttr('updatedAt'),
                 },
 
             };
@@ -145,7 +153,12 @@ class prop extends facade.Control
             paramGold.current,
             paramGold.gold,
             paramGold.status,
-            paramGold.cp);
+            paramGold.cp,
+            paramGold.stock,
+            paramGold.pro_num,
+            paramGold.createdAt,
+            paramGold.updatedAt,
+            );
         return {code: ReturnCode.Success,data: insert};
     }
 
