@@ -126,13 +126,13 @@ class operator extends facade.Control
         if (Number.isNaN(parseInt(currentPage))) {
             currentPage=1;
         }
-
+        // console.log("129");
+        // console.log(objData);
         //得到 Mapping 对象
         let muster = facade.GetMapping(104) 
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-            .where(paramArray)
             .orderby('id', 'desc') //根据id字段倒叙排列
-            .paginate(10, currentPage, []); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
+            .paginate(10, currentPage, ['id','login_name','cid','remark']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
         let $data = {items:{},list:[],pagination:{}};
         //扩展分页器对象
