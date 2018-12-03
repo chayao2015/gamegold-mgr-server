@@ -279,7 +279,7 @@ class cp extends facade.Control
     /**
      * 从数据库中获取所有列表
      * 客户端直接调用此方法
-     * 此方法似乎不使用_欢欢用
+     * jinghh 用做创建道具获取所有游戏
      */
     async ListAllRecord() {
         let resList = facade.GetMapping(102) //得到 Mapping 对象

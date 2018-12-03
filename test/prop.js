@@ -30,6 +30,17 @@ describe('道具（prop）', function() {
         }
     }
     );
+    it('prop.ListAllRecordByStatus 按照status获取本地库道具所有列表ListAllRecordByStatus', async () => { 
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+            let list = await remote.fetching({func: "prop.ListAllRecordByStatus",
+            status:1,
+        });
+         console.log('ListAllRecordByStatus列表：');
+         console.log(list);
+        }
+    }
+    );
     it('prop.LocalDetail 获取道具详情LocalDetail', async () => { 
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
@@ -38,10 +49,10 @@ describe('道具（prop）', function() {
         }
     });
 
-    it('prop.CreateProp 道具上链CreateProp', async () => { 
+    it('prop.CreatePropRemote道具上链CreatePropRemote', async () => { 
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
-            let res = await remote.fetching({func: "prop.CreateProp", items: ['xxxxxxxx-game-gold-boss-xxxxxxxxxxxx','xxxxxxxx-game-gold-boss-toekn20181130',100000]});
+            let res = await remote.fetching({func: "prop.CreatePropRemote", items: ['18259163464','xxxxxxxx-game-gold-boss-toekn20181130',100000]});
             console.log(res);
         }
     });

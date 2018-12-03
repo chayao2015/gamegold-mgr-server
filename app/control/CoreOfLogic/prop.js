@@ -2,7 +2,7 @@
  * @Author: jinghh 
  * @Date: 2018-11-22 11:38:53 
  * @Last Modified by: jinghh
- * @Last Modified time: 2018-11-30 15:56:28
+ * @Last Modified time: 2018-12-03 17:32:32
  */
 
 
@@ -96,6 +96,41 @@ class prop extends facade.Control
         $data.list= Object.keys($data.items).map(key=> $data.items[key]);
         return $data;
 
+    }
+
+    /**
+     *
+     *从数据库中获取所有道具列表
+     * @param {*} user
+     * @param {*} objData
+     * @returns
+     * @memberof prop
+     */
+    ListAllRecordByStatus(user, objData) {
+        if (objData==null) {
+            objData={};
+        }
+        let paramArray=new Array();
+        if (typeof(objData.status) != "undefined" && (objData.status!="")) {
+            paramArray.push(['status','==',parseInt(objData.status)]);
+        }
+        console.log(paramArray);
+        let resList = facade.GetMapping(103) //得到 Mapping 对象
+        .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
+        //.where(paramArray)
+        .orderby('id', 'desc') //根据id字段倒叙排列
+        .paginate(99999, 1,['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview', 'gold', 'cp', 'stock', 'pro_num']); 
+
+        console.log(resList);
+        let $data = {};
+        let $idx = 0;
+        for(let $value of resList.records()){
+            $data[$idx] = {id: $value['id'], props_name: $value['props_name'],props_type: $value['props_type'],cid: $value['cid'],props_desc: $value['props_desc'],
+            pid: $value['pid'], oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],gold: $value['gold'],
+            cp: $value['cp'],stock: $value['stock'],pro_num: $value['pro_num'],rank: $idx};
+            $idx++;
+        }
+        return {code: ReturnCode.Success, data: $data};
     }
     /**
      * 查看单个记录
