@@ -7,7 +7,7 @@ const remote = require('./util')
 //一组单元测试流程
 describe('操作员', function() {
     
-    it.only('operator.listRecord 列表', async () => {
+    it('operator.listRecord 列表', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
             let msg = await remote.fetching({func: "operator.ListRecord"});
@@ -16,7 +16,7 @@ describe('操作员', function() {
     });
 
     
-    it.only('operator.Retrieve 获取指定id的记录', async () => { 
+    it('operator.Retrieve 获取指定id的记录', async () => { 
             let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
             if(remote.isSuccess(msg)) {
                 console.log(await remote.fetching({func: "operator.Retrieve", id: 2}));
@@ -29,10 +29,7 @@ describe('操作员', function() {
         let msg = await remote.fetching({func: "operator.CreateRecord",
             login_name: `operator${Math.random()*1000 | 0}`,
             password: `${Math.random()*1000000 | 0}`,
-            cid: '游戏中文名啦',
-            token: 'theurl',
-            remark: 'addr',
-
+            remark: 'whoami',
         });
     });
 

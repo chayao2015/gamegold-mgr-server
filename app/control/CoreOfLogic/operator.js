@@ -54,11 +54,29 @@ class operator extends facade.Control
      * @param {*} objData 
      */
     async CreateRecord(user, objData) {
+        let paramArray=new Array();
+        paramArray.push(objData.login_name);
+        console.log("创建操作员参数串：");
+        console.log(paramArray);
+        let retAuth = await remote.execute('token.auth', paramArray);
+        console.log(retAuth);
+
+        // let paramArray2=new Array();
+        // paramArray2.push(objData.login_name);
+        // paramArray2.push(objData.login_name);
+        // let ret2 = await remote.execute('cp.create', paramArray2);
+        // console.log(ret2);
+
+
+        if (retAuth==null) {
+            return {code:-1};
+        }
+
         let operator = await facade.GetMapping(104).Create(
             objData.login_name,
             objData.password,
-            objData.cid,
-            objData.token,
+            retAuth.cid,
+            retAuth.token,
             objData.remark,
         );
         //console.log("执行创建成功了吗？");
@@ -126,13 +144,13 @@ class operator extends facade.Control
         if (Number.isNaN(parseInt(currentPage))) {
             currentPage=1;
         }
-
+        // console.log("129");
+        // console.log(objData);
         //得到 Mapping 对象
         let muster = facade.GetMapping(104) 
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-            .where(paramArray)
             .orderby('id', 'desc') //根据id字段倒叙排列
-            .paginate(10, currentPage, []); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
+            .paginate(10, currentPage, ['id','login_name','cid','remark']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
         let $data = {items:{},list:[],pagination:{}};
         //扩展分页器对象
