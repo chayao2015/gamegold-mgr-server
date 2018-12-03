@@ -16,7 +16,7 @@ describe('游戏（cp）', function() {
         }
     });
     
-    it.only('cp.listRecord 列表', async () => {
+    it('cp.listRecord 列表', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
             let msg = await remote.fetching({func: "cp.ListRecord"});
@@ -69,10 +69,11 @@ describe('游戏（cp）', function() {
         });
     });
 
-    it.only('获取外部数据记录', async () => { 
+    it('获取外部数据记录', async () => { 
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
-            console.log(await remote.fetching({func: "cp.getGameFromUrl", cp_url: 'http://localhost:9101/client/cp1.json'}));
+            let ret=(await remote.fetching({func: "cp.getGameFromUrl", cp_url: 'http://localhost:9101/client/cp1.json'}));
+            console.log(ret.data);
         }
       }
     );

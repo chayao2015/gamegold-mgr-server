@@ -54,11 +54,20 @@ class operator extends facade.Control
      * @param {*} objData 
      */
     async CreateRecord(user, objData) {
+        let paramArray=new Array();
+        paramArray.push(objData.login_name);
+        console.log(paramArray);
+        let retAuth = await remote.execute('token.auth', paramArray);
+        console.log(retAuth.data);
+        if (retAuth.code!=0 || retAuth.data==null) {
+            return {code:-1};
+        }
+
         let operator = await facade.GetMapping(104).Create(
             objData.login_name,
             objData.password,
-            objData.cid,
-            objData.token,
+            retAuth.data.cid,
+            retAuth.data.token,
             objData.remark,
         );
         //console.log("执行创建成功了吗？");
