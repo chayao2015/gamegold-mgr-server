@@ -53,6 +53,7 @@ describe('游戏（cp）', function() {
         let msg = await remote.fetching({func: "cp.CreateRecord",
             cp_id: '06b29ea0-ecc2-11e8-914e-9765abd9da46',
             cp_name: 'ABCDEF',
+            cp_text: '游戏中文名啦',
             cp_url: 'theurl',
             wallet_addr: 'addr',
             cp_type:'type2',
