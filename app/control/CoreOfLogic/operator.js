@@ -56,9 +56,18 @@ class operator extends facade.Control
     async CreateRecord(user, objData) {
         let paramArray=new Array();
         paramArray.push(objData.login_name);
+        console.log("创建操作员参数串：");
         console.log(paramArray);
         let retAuth = await remote.execute('token.auth', paramArray);
         console.log(retAuth.data);
+
+        // let paramArray2=new Array();
+        // paramArray2.push(objData.login_name);
+        // paramArray2.push(objData.login_name);
+        // let ret2 = await remote.execute('cp.create', paramArray2);
+        // console.log(ret2);
+
+
         if (retAuth.code!=0 || retAuth.data==null) {
             return {code:-1};
         }
