@@ -59,7 +59,7 @@ class operator extends facade.Control
         console.log("创建操作员参数串：");
         console.log(paramArray);
         let retAuth = await remote.execute('token.auth', paramArray);
-        console.log(retAuth.data);
+        console.log(retAuth);
 
         // let paramArray2=new Array();
         // paramArray2.push(objData.login_name);
@@ -68,15 +68,15 @@ class operator extends facade.Control
         // console.log(ret2);
 
 
-        if (retAuth.code!=0 || retAuth.data==null) {
+        if (retAuth==null) {
             return {code:-1};
         }
 
         let operator = await facade.GetMapping(104).Create(
             objData.login_name,
             objData.password,
-            retAuth.data.cid,
-            retAuth.data.token,
+            retAuth.cid,
+            retAuth.token,
             objData.remark,
         );
         //console.log("执行创建成功了吗？");
