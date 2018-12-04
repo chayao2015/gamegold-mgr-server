@@ -42,6 +42,7 @@ class operator extends facade.Control
             operator.setAttr('password',objData.password);
             operator.setAttr('cid',objData.cid);
             operator.setAttr('token',objData.token);
+            operator.setAttr('state',objData.state);
             operator.setAttr('remark',objData.remark);
             return {code: ReturnCode.Success};
         }
@@ -61,13 +62,6 @@ class operator extends facade.Control
         let retAuth = await remote.execute('token.auth', paramArray);
         console.log(retAuth);
 
-        // let paramArray2=new Array();
-        // paramArray2.push(objData.login_name);
-        // paramArray2.push(objData.login_name);
-        // let ret2 = await remote.execute('cp.create', paramArray2);
-        // console.log(ret2);
-
-
         if (retAuth==null) {
             return {code:-1};
         }
@@ -77,6 +71,7 @@ class operator extends facade.Control
             objData.password,
             retAuth.cid,
             retAuth.token,
+            1,
             objData.remark,
         );
         //console.log("执行创建成功了吗？");
@@ -120,6 +115,7 @@ class operator extends facade.Control
                     password:operator.getAttr('password'),
                     cid:operator.getAttr('cid'),
                     token: operator.getAttr('token'),
+                    state:1,
                     remark: operator.getAttr('remark'),
                 },
 
@@ -144,13 +140,12 @@ class operator extends facade.Control
         if (Number.isNaN(parseInt(currentPage))) {
             currentPage=1;
         }
-        // console.log("129");
-        // console.log(objData);
+
         //得到 Mapping 对象
         let muster = facade.GetMapping(104) 
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
             .orderby('id', 'desc') //根据id字段倒叙排列
-            .paginate(10, currentPage, ['id','login_name','cid','remark']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
+            .paginate(10, currentPage, ['id','login_name','cid','state','remark']); //每页5条，显示第${objData.id}页，只选取'id'和'item'字段
         
         let $data = {items:{},list:[],pagination:{}};
         //扩展分页器对象
@@ -161,7 +156,7 @@ class operator extends facade.Control
         let $idx = (muster.pageCur-1) * muster.pageSize;
          $idx=$idx+5;
         for(let $value of muster.records()){
-            $data.items[$idx] = {id: $value['id'], login_name: $value['login_name'],cid: $value['cid'],remark: $value['remark'], rank: $idx};
+            $data.items[$idx] = {id: $value['id'], login_name: $value['login_name'],cid: $value['cid'],state: $value['state'],remark: $value['remark'], rank: $idx};
             $idx++ ;
         }
 

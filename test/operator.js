@@ -30,6 +30,7 @@ describe('操作员', function() {
             login_name: `operator${Math.random()*1000 | 0}`,
             password: `${Math.random()*1000000 | 0}`,
             remark: 'whoami',
+            state:1,
         });
     });
 

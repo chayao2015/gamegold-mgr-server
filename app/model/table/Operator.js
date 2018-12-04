@@ -13,6 +13,7 @@ let Operator = (db, sa, pwd) => seqconn.seqConnector(db, sa, pwd).define(
         password: Sequelize.STRING,
         cid: Sequelize.STRING,
         token: Sequelize.STRING,
+        state:Sequelize.INTEGER,
         remark: Sequelize.STRING,
     },
     {

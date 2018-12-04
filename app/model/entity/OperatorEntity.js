@@ -20,13 +20,14 @@ class OperatorEntity extends BaseEntity
     /**
      * 创建记录时的钩子函数
      */
-    static async onCreate(login_name,password,cid,token,remark) {
+    static async onCreate(login_name,password,cid,token,state,remark) {
         try{
             let it = await Operator().create({
                 'login_name': login_name,
                 'password': password,
                 'cid': cid,
                 'token': token,
+                'state': state,
                 'remark': remark,
             });
             await it.save();
