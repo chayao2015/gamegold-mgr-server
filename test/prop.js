@@ -22,21 +22,22 @@ describe('道具（prop）', function() {
             let list = await remote.fetching({func: "prop.LocalList",
             currentPage:1,
             pageSize:2,
-            props_id:'',
+            pid:'',
             props_name:'',
-            cid:'',
+            cid:'8993ee70-f783-11e8-b7aa-b7ccf462e0a1',
         });
          console.log(list);
         }
     }
     );
-    it('prop.ListAllRecordByStatus 按照status获取本地库道具所有列表ListAllRecordByStatus', async () => { 
+    it('prop.getAllPropsByParams 按照status获取本地库道具所有列表getAllPropsByParams', async () => { 
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
-            let list = await remote.fetching({func: "prop.ListAllRecordByStatus",
-            status:1,
+            let list = await remote.fetching({func: "prop.getAllPropsByParams",
+            status: 1,
+            cid:'06b29ea0-ecc2-11e8-914e-9765abd9da46',
         });
-         console.log('ListAllRecordByStatus列表：');
+         console.log('getAllPropsByParams列表：');
          console.log(list);
         }
     }

@@ -282,9 +282,14 @@ class cp extends facade.Control
      * jinghh 用做创建道具获取所有游戏
      */
     async ListAllRecord() {
-        let resList = facade.GetMapping(102) //得到 Mapping 对象
-        .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
-        .orderby('id', 'desc') //根据id字段倒叙排列
+
+      
+        let paramArray=new Array();
+        paramArray.push(['cp_state','==',2]);//读取已上架
+        let resList = facade.GetMapping(102) 
+        .groupOf() 
+        .where(paramArray)
+        .orderby('id', 'desc') 
         .records(['id', 'cp_id','cp_text','cp_type','cp_state','publish_time']); 
         let $data = {};
         let $idx = 0;
