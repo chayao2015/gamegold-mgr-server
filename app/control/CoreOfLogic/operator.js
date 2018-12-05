@@ -74,9 +74,15 @@ class operator extends facade.Control
             1,
             objData.remark,
         );
-        //console.log("执行创建成功了吗？");
-        console.log({code: ReturnCode.Success});
-        return {code: ReturnCode.Success};
+        // console.log("执行创建成功了吗？");
+        if (operator==null) {
+            return {code:-1,message:"违反唯一性约束"}
+        }
+        else {
+            return {code:0};            
+        }
+
+
     }
     /**
      * 页面入口
