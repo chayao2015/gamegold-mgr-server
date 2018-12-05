@@ -123,7 +123,22 @@ class wallet extends facade.Control
         return {code: ReturnCode.Success,list: ret};
     }
 
-
+    /**
+     * 获取钱包助记词
+     * @param {*} user 
+     * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
+     */
+    async KeyMaster(user, paramGold) {
+        console.log("key.master参数串：");
+        let paramArray=paramGold.items;
+        if (typeof(paramArray)=="string") {
+            paramArray=eval(paramArray);
+        }
+        console.log(paramArray);
+        let ret = await remote.execute('key.master', paramArray);
+        console.log(ret);
+        return {code: ReturnCode.Success,list: ret};
+    }
 }
 
 exports = module.exports = wallet;

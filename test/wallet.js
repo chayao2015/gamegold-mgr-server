@@ -27,5 +27,13 @@ describe('钱包', function() {
         }
     });
 
-
+    it.only('获取钱包助记词', async () => {
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+        //所有的控制器都拥有echo方法
+            msg = await remote.fetching({func: "wallet.KeyMaster",items:[]});
+            console.log(msg);
+            remote.isSuccess(msg, true);
+        }
+    });
 });
