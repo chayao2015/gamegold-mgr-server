@@ -29,7 +29,7 @@ describe('操作员', function() {
         let msg = await remote.fetching({func: "operator.CreateRecord",
             login_name: `operator${Math.random()*1000 | 0}`,
             password: `${Math.random()*1000000 | 0}`,
-            remark: 'whoami',
+            remark: 'who are you?',
             state:1,
         });
     });
