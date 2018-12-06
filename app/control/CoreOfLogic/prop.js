@@ -63,8 +63,8 @@ class prop extends facade.Control
         let pageSize = objData.pageSize || 10;
         let currentPage = objData.currentPage || 1;
         let paramArray=new Array();
-        if (typeof(objData.pid) != "undefined" && (objData.pid!="")) {
-            paramArray.push(['pid','==',objData.pid]);
+        if (typeof(objData.id) != "undefined" && (objData.id!="")) {
+            paramArray.push(['id','==',parseInt(objData.id)]);
         }
         if (typeof(objData.props_name) != "undefined" && (objData.props_name!="")) {
             paramArray.push(['props_name','==',objData.props_name]);
@@ -72,7 +72,9 @@ class prop extends facade.Control
         if (typeof(objData.cid) != "undefined" && (objData.cid!="")) {
             paramArray.push(['cid','==',objData.cid]);
         }
-        console.log(paramArray);
+        let cpIdText = this.cpIdText();
+        cpIdText = cpIdText.data || {};
+
         //得到 Mapping 对象
         let muster = facade.GetMapping(103) 
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
@@ -90,7 +92,7 @@ class prop extends facade.Control
         for(let $value of muster.records()){
             $data.items[$idx] = {id: $value['id'], props_name: $value['props_name'],props_type: $value['props_type'],cid: $value['cid'],props_desc: $value['props_desc'],
             pid: $value['pid'], oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],gold: $value['gold'],
-            cp: $value['cp'],stock: $value['stock'],pro_num: $value['pro_num'],status: $value['status'],rank: $idx};
+            cp: $value['cp'],stock: $value['stock'],pro_num: $value['pro_num'],status: $value['status'],cp_name: cpIdText[$value['cid']] || '',rank: $idx};
             $idx++ ;
         }
         $data.list= Object.keys($data.items).map(key=> $data.items[key]);
@@ -124,13 +126,15 @@ class prop extends facade.Control
         .orderby('id', 'desc') //根据id字段倒叙排列
         .records(['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview', 'gold', 'cp', 'stock', 'pro_num', 'status']); 
 
-        console.log(resList);
+        let cpIdText = this.cpIdText();
+        cpIdText = cpIdText.data || {};
+
         let $data = {};
         let $idx = 0;
         for(let $value of resList){
             $data[$idx] = {id: $value['id'], props_name: $value['props_name'],props_type: $value['props_type'],cid: $value['cid'],props_desc: $value['props_desc'],
             pid: $value['pid'], oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],gold: $value['gold'],
-            cp: $value['cp'],stock: $value['stock'],pro_num: $value['pro_num'],status: $value['status'],rank: $idx};
+            cp: $value['cp'],stock: $value['stock'],pro_num: $value['pro_num'],status: $value['status'],cp_name: cpIdText[$value['cid']] || '',rank: $idx};
             $idx++;
         }
         return {code: ReturnCode.Success, data: $data};
@@ -141,6 +145,8 @@ class prop extends facade.Control
      * @param {*} objData 
      */
     LocalDetail(user, objData) {
+        let cpIdText = this.cpIdText();
+        cpIdText = cpIdText.data || {};
         //根据上行id查找表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
         let prop = facade.GetObject(103, parseInt(objData.id));
         if(!!prop) {
@@ -163,6 +169,7 @@ class prop extends facade.Control
                     pro_num:prop.getAttr('pro_num'),
                     createdAt:prop.getAttr('createdAt'),
                     updatedAt:prop.getAttr('updatedAt'),
+                    cp_name:cpIdText[prop.getAttr('cid')] || '',
                 },
 
             };
@@ -215,6 +222,24 @@ class prop extends facade.Control
         }
         let ret = await remote.execute('prop.create', paramArray);
         return {code: ReturnCode.Success,data: ret};
+    }
+
+      /**
+     * 从数据库中获取所有游戏cp_id => cp_text
+     */
+    cpIdText() {
+        let paramArray=new Array();
+        paramArray.push(['cp_state','==',2]);//读取已上架
+        let resList = facade.GetMapping(102) 
+        .groupOf() 
+        .where(paramArray)
+        .orderby('id', 'desc') 
+        .records(['cp_id','cp_text']); 
+        let $data = {};
+        for(let $value of resList){
+            $data[$value['cp_id']] = $value['cp_text'];
+        }
+        return {code: ReturnCode.Success, data: $data};
     }
 }
 

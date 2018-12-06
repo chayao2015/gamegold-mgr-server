@@ -27,6 +27,7 @@ let Prop = (db, sa, pwd) => seqconn.seqConnector(db, sa, pwd).define(
         'cp':Sequelize.STRING,
         'stock':Sequelize.INTEGER,
         'pro_num':Sequelize.INTEGER,
+        'create_res':Sequelize.TEXT,
         'createdAt':Sequelize.DATE,
         'updatedAt':Sequelize.DATE,
     },
