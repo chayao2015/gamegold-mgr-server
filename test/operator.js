@@ -24,7 +24,7 @@ describe('操作员', function() {
         }
     );
 
-    it.only('operator创建表记录', async () => {
+    it('operator创建表记录', async () => {
         await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         let msg = await remote.fetching({func: "operator.CreateRecord",
             login_name: `operator${Math.random()*1000 | 0}`,
@@ -34,5 +34,21 @@ describe('操作员', function() {
         });
     });
 
+    it.only('operator登录A', async () => {
+        await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        let msg = await remote.fetching({func: "operator.Login",
+            userName: `admin`,
+            password: `888888`,
+        });
+        console.log(msg);
+    });
 
+    it.only('operator登录B', async () => {
+        await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        let msg = await remote.fetching({func: "operator.Login",
+            userName: `operater111`,
+            password: `888888`,
+        });
+        console.log(msg);
+    });
 });
