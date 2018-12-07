@@ -1,21 +1,16 @@
 let facade = require('gamecloud')
 let {ReturnCode, NotifyType} = facade.const
 
-//引入工具包
-const toolkit = require('gamegoldtoolkit')
-//创建授权式连接器实例
-const remote = new toolkit.conn();
-//兼容性设置，提供模拟浏览器环境中的 fetch 函数
-remote.setFetch(require('node-fetch'))  
-// remote.setup({
-//     type:   'testnet',
-//     ip:     '127.0.0.1',          //远程服务器地址
-//     head:   'http',               //远程服务器通讯协议，分为 http 和 https
-//     id:     'primary',            //默认访问的钱包编号
-//     apiKey: 'bookmansoft',        //远程服务器基本校验密码
-//     cid:    'xxxxxxxx-game-gold-root-xxxxxxxxxxxx', //授权节点编号，用于访问远程钱包时的认证
-//     token:  '03aee0ed00c6ad4819641c7201f4f44289564ac4e816918828703eecf49e382d08', //授权节点令牌固定量，用于访问远程钱包时的认证
-//   });
+//引入自定义的远程节点类
+let RemoteNode=require('./RemoteNode');
+
+// //引入工具包
+// const toolkit = require('gamegoldtoolkit')
+// //创建授权式连接器实例
+// const remote = new toolkit.conn();
+// //兼容性设置，提供模拟浏览器环境中的 fetch 函数
+// remote.setFetch(require('node-fetch'))  
+
 /**
  * 游戏的控制器
  * Updated by thomasFuzhou on 2018-11-19.
@@ -100,6 +95,7 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Create(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("cp.Create参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -117,6 +113,7 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Change(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("cp.Change参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -134,6 +131,7 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async ById(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("cp.ById参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -151,6 +149,7 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async ByName(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("cp.ByName参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -205,6 +204,7 @@ class cp extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async List(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("cp.list参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {

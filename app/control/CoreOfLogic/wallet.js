@@ -4,12 +4,12 @@ let {ReturnCode, NotifyType} = facade.const
 //引入自定义的远程节点类
 let RemoteNode=require('./RemoteNode');
 
-//引入工具包
-const toolkit = require('gamegoldtoolkit')
-//创建授权式连接器实例
-const remote = new toolkit.conn();
-//兼容性设置，提供模拟浏览器环境中的 fetch 函数
-remote.setFetch(require('node-fetch'))  
+// //引入工具包
+// const toolkit = require('gamegoldtoolkit')
+// //创建授权式连接器实例
+// const remote = new toolkit.conn();
+// //兼容性设置，提供模拟浏览器环境中的 fetch 函数
+// remote.setFetch(require('node-fetch'))  
 
 /**
  * 游戏的控制器
@@ -30,6 +30,7 @@ class wallet extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Create(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("wallet.Create参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -47,6 +48,7 @@ class wallet extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async List(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("wallet.List参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -64,16 +66,15 @@ class wallet extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Info(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("wallet.Info参数串：");
-        let remoteX=new RemoteNode().conn(paramGold.userinfo);
-
         console.log(JSON.stringify(paramGold.userinfo));
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);
         }
         console.log(paramArray);
-        let ret = await remoteX.execute('wallet.info', paramArray);
+        let ret = await remote.execute('wallet.info', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,list: ret};
     }
@@ -84,6 +85,7 @@ class wallet extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Dump(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("wallet.Dump参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -101,6 +103,7 @@ class wallet extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async ImportWallet(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("wallet.ImportWallet参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -118,6 +121,7 @@ class wallet extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Backup(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("wallet.Backup参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -135,6 +139,7 @@ class wallet extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async KeyMaster(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("key.master参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {

@@ -1,12 +1,15 @@
 let facade = require('gamecloud')
 let {ReturnCode, NotifyType} = facade.const
 
-//引入工具包
-const toolkit = require('gamegoldtoolkit')
-//创建授权式连接器实例
-const remote = new toolkit.conn();
-//兼容性设置，提供模拟浏览器环境中的 fetch 函数
-remote.setFetch(require('node-fetch'))  
+//引入自定义的远程节点类
+let RemoteNode=require('./RemoteNode');
+
+// //引入工具包
+// const toolkit = require('gamegoldtoolkit')
+// //创建授权式连接器实例
+// const remote = new toolkit.conn();
+// //兼容性设置，提供模拟浏览器环境中的 fetch 函数
+// remote.setFetch(require('node-fetch'))  
 
 /**
  * 账户的控制器
@@ -27,6 +30,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async List(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.List参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -44,6 +48,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Get(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.Get参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -61,6 +66,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Create(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.Create参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -78,6 +84,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Amount(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.Amount参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -95,6 +102,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Received(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.Receive参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -112,6 +120,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async ListReceived(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.ListReceived参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -129,6 +138,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async BalanceConfirmed(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.BalanceConfirmed参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -146,6 +156,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async BalanceAll(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.BalanceAll参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
@@ -163,6 +174,7 @@ class account extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async BalanceUnconfirmed(user, paramGold) {
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         console.log("account.BalanceUnconfirmed参数串：");
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
