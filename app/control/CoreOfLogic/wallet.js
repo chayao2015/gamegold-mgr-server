@@ -62,6 +62,7 @@ class wallet extends facade.Control
      */
     async Info(user, paramGold) {
         console.log("wallet.Info参数串：");
+        console.log(JSON.stringify(paramGold.userinfo));
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);

@@ -169,10 +169,10 @@ class operator extends facade.Control
             //密码正确
             console.log("登录成功");
             if (objData.userName=="admin") {
-                return {status: "ok", type: "account", currentAuthority: "admin"};
+                return {status: "ok", type: "account", currentAuthority: "admin",userinfo:{id:$data.id}};
             }
             else {
-                return {status: "ok", type: "account", currentAuthority: "user"};
+                return {status: "ok", type: "account", currentAuthority: "user",userinfo:{id:$data.id}};
             }
         }
         else {
