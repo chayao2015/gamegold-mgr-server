@@ -43,7 +43,7 @@ class prop extends facade.Control
      * @memberof prop
      */
     async List(user, paramGold) {
-        let remote=new RemoteNode().conn(paramGold.userinfo);
+        let remote=new RemoteNode().connY(paramGold.userinfo);
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);
@@ -174,6 +174,7 @@ class prop extends facade.Control
                     createdAt:prop.getAttr('createdAt'),
                     updatedAt:prop.getAttr('updatedAt'),
                     cp_name:cpIdText[prop.getAttr('cid')] || '',
+                    create_res:prop.getAttr('create_res'),
                 },
 
             };
@@ -225,11 +226,38 @@ class prop extends facade.Control
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);
         }
+        //prop.create [cid oid gold]
         let ret = await remote.execute('prop.create', paramArray);
         return {code: ReturnCode.Success,data: ret};
     }
+     /**
+    * 道具批量上链
+    * @param {*} user
+    * @param {*} paramGold
+    * @returns
+    * @memberof prop
+    */
+   async CreatePropListRemote(user, paramGold) {
+    let remote=new RemoteNode().connY(paramGold.userinfo);
+    //prop.createlist "cid|oid|gold,cid|oid|gold"
+    let reqStr = '';
+    for(let i = 1; i<=paramGold.num; i++){
+        if(i < paramGold.num){
+            reqStr += `${paramGold.pid}|${paramGold.oid}|${paramGold.gold},`;
+        }else{
+            reqStr += `${paramGold.pid}|${paramGold.oid}|${paramGold.gold}`;
+        }
+    }
+    let reqArr = new Array();
+    reqArr[0] = reqStr;
+    console.log(reqArr);
+    let ret = await remote.execute('prop.createlist', reqArr);
+    console.log(ret);
+    //TODO 成功后这里修改道具库并记录
+    return {code: ReturnCode.Success,data: ret};
+    }
 
-      /**
+    /**
      * 从数据库中获取所有游戏cp_id => cp_text
      */
     cpIdText() {
@@ -245,6 +273,36 @@ class prop extends facade.Control
             $data[$value['cp_id']] = $value['cp_text'];
         }
         return {code: ReturnCode.Success, data: $data};
+    }
+    /**
+     * 修改记录
+     * @param {*} user 
+     * @param {*} objData 
+     */
+    UpdateProp(user, objData) {
+        if (objData==null) {
+            objData={};
+        }
+        let id = '';
+        let create_res = '';
+        if (typeof(objData.id) != "undefined" && (objData.id!="")) {
+            id = parseInt(objData.id);
+        }
+        if (typeof(objData.create_res) != "undefined" && (objData.create_res!="")) {
+            create_res = objData.create_res;
+        }
+        if( id =='' || create_res == ''){
+            return {code: -2};
+        }
+        let prop = facade.GetObject(103, id);
+        if(!!prop) {
+            //需要针对各个属性增加为null的判断；如果为null的情况下，则
+            prop.setAttr('status',2);
+            prop.setAttr('create_res',create_res);
+            //prop.setAttr('updatedAt',objData.updatedAt);
+            return {code: ReturnCode.Success};
+        }
+        return {code: -1};
     }
 }
 

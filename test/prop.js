@@ -26,7 +26,6 @@ describe('道具（prop）', function() {
             props_name:'',
             cid:'',
         });
-         console.log(list);
         }
     }
     );
@@ -89,6 +88,46 @@ describe('道具（prop）', function() {
         if(remote.isSuccess(msg)) {
             let list = await remote.fetching({func: "prop.cpIdText"});
          console.log(list);
+        }
+    });
+    it('prop.UpdateProp 修改本地库道具UpdateProp', async () => { 
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+            let list = await remote.fetching({func: "prop.UpdateProp",
+            id:25,
+            create_res:JSON.stringify({
+                "oper": "new",
+                "cid": "b77a9b90-bbc4-11e8-9203-1ff8357db148",
+                "oid": "gamemonkey0003",
+                "gold": 10000,
+                "pid": "15e1a160-bbc5-11e8-9203-1ff8357db148",
+                "index": 0,
+                "txid": "d88d0e9ed243fb767643ea1dea754af9aab53e3eab274c4c1f95067efc15135b"
+              }),
+        
+        });
+         console.log(list);
+        }
+    });
+    it('钱包信息 wallet.info', async () => {
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+        //所有的控制器都拥有echo方法
+            msg = await remote.fetching({func: "wallet.Info",items:[]});
+            remote.isSuccess(msg, true);
+        }
+    });
+    it.only('批量生产 prop.CreatePropListRemote', async () => {
+        let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
+        if(remote.isSuccess(msg)) {
+            msg = await remote.fetching({func: "prop.CreatePropListRemote",
+            pid : '0f4a49d0-ed55-11e8-b73c-3572ec77796e', 
+            oid : 'xx-token', 
+            gold :100000, 
+            num : 2
+        
+        });
+        console.log(msg);
         }
     });
 

@@ -66,7 +66,7 @@ class wallet extends facade.Control
      * @param {*} paramGold 其中的成员 items 是传递给区块链全节点的参数数组
      */
     async Info(user, paramGold) {
-        let remote=new RemoteNode().conn(paramGold.userinfo);
+        let remote=new RemoteNode().connY(paramGold.userinfo);
         console.log("wallet.Info参数串：");
         console.log(JSON.stringify(paramGold.userinfo));
         let paramArray=paramGold.items;
