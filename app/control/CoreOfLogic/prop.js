@@ -43,7 +43,7 @@ class prop extends facade.Control
      * @memberof prop
      */
     async List(user, paramGold) {
-        let remote=new RemoteNode().connY(paramGold.userinfo);
+        let remote=new RemoteNode().conn(paramGold.userinfo);
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);
@@ -238,7 +238,7 @@ class prop extends facade.Control
     * @memberof prop
     */
    async CreatePropListRemote(user, paramGold) {
-    let remote=new RemoteNode().connY(paramGold.userinfo);
+    let remote=new RemoteNode().conn(paramGold.userinfo);
     //prop.createlist "cid|oid|gold,cid|oid|gold"
     let reqStr = '';
     for(let i = 1; i<=paramGold.num; i++){
