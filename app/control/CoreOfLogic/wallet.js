@@ -1,6 +1,9 @@
 let facade = require('gamecloud')
 let {ReturnCode, NotifyType} = facade.const
 
+//引入自定义的远程节点类
+let RemoteNode=require('./RemoteNode');
+
 //引入工具包
 const toolkit = require('gamegoldtoolkit')
 //创建授权式连接器实例
@@ -62,13 +65,15 @@ class wallet extends facade.Control
      */
     async Info(user, paramGold) {
         console.log("wallet.Info参数串：");
+        let remoteX=new RemoteNode().conn(paramGold.userinfo);
+
         console.log(JSON.stringify(paramGold.userinfo));
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);
         }
         console.log(paramArray);
-        let ret = await remote.execute('wallet.info', paramArray);
+        let ret = await remoteX.execute('wallet.info', paramArray);
         console.log(ret);
         return {code: ReturnCode.Success,list: ret};
     }
