@@ -34,7 +34,7 @@ describe('操作员', function() {
         });
     });
 
-    it.only('operator登录A', async () => {
+    it('operator登录A', async () => {
         await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         let msg = await remote.fetching({func: "operator.Login",
             userName: `admin`,
@@ -43,7 +43,7 @@ describe('操作员', function() {
         console.log(msg);
     });
 
-    it.only('operator登录B', async () => {
+    it('operator登录B', async () => {
         await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         let msg = await remote.fetching({func: "operator.Login",
             userName: `operater111`,

@@ -293,7 +293,7 @@ class cp extends facade.Control
 
       
         let paramArray=new Array();
-        paramArray.push(['cp_state','==',2]);//读取已上架
+        //paramArray.push(['cp_state','==',2]);//读取已上架
         let resList = facade.GetMapping(102) 
         .groupOf() 
         .where(paramArray)

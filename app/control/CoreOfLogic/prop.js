@@ -43,7 +43,7 @@ class prop extends facade.Control
      * @memberof prop
      */
     async List(user, paramGold) {
-        let remote=new RemoteNode().conn(paramGold.userinfo);
+        let remote=new RemoteNode().connY(paramGold.userinfo);
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);
@@ -84,7 +84,7 @@ class prop extends facade.Control
             .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
             .where(paramArray)
             .orderby('id', 'desc') //根据id字段倒叙排列
-            .paginate(pageSize, currentPage, ['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview', 'gold', 'cp', 'stock', 'pro_num', 'status']); 
+            .paginate(pageSize, currentPage, ['id', 'props_name','props_type', 'cid','props_desc','oid','icon_url', 'icon_preview', 'stock', 'pro_num', 'status', 'create_res']); 
         
         let $data = {items:{},list:[],pagination:{}};
         //扩展分页器对象
@@ -95,8 +95,8 @@ class prop extends facade.Control
         let $idx = (muster.pageCur-1) * muster.pageSize;
         for(let $value of muster.records()){
             $data.items[$idx] = {id: $value['id'], props_name: $value['props_name'],props_type: $value['props_type'],cid: $value['cid'],props_desc: $value['props_desc'],
-            pid: $value['pid'], oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],gold: $value['gold'],
-            cp: $value['cp'],stock: $value['stock'],pro_num: $value['pro_num'],status: $value['status'],cp_name: cpIdText[$value['cid']] || '',rank: $idx};
+            oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],stock: $value['stock'],
+            pro_num: $value['pro_num'],status: $value['status'],create_res: $value['create_res'],cp_name: cpIdText[$value['cid']] || '',rank: $idx};
             $idx++ ;
         }
         $data.list= Object.keys($data.items).map(key=> $data.items[key]);
@@ -128,7 +128,7 @@ class prop extends facade.Control
         .groupOf() // 将 Mapping 对象转化为 Collection 对象，如果 Mapping 对象支持分组，可以带分组参数调用
         .where(paramArray)
         .orderby('id', 'desc') //根据id字段倒叙排列
-        .records(['id', 'props_name','props_type', 'cid','props_desc','pid','oid','icon_url', 'icon_preview', 'gold', 'cp', 'stock', 'pro_num', 'status']); 
+        .records(['id', 'props_name','props_type', 'cid','props_desc','oid','icon_url', 'icon_preview','stock', 'pro_num', 'status','create_res']); 
 
         let cpIdText = this.cpIdText();
         cpIdText = cpIdText.data || {};
@@ -137,8 +137,8 @@ class prop extends facade.Control
         let $idx = 0;
         for(let $value of resList){
             $data[$idx] = {id: $value['id'], props_name: $value['props_name'],props_type: $value['props_type'],cid: $value['cid'],props_desc: $value['props_desc'],
-            pid: $value['pid'], oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],gold: $value['gold'],
-            cp: $value['cp'],stock: $value['stock'],pro_num: $value['pro_num'],status: $value['status'],cp_name: cpIdText[$value['cid']] || '',rank: $idx};
+            oid: $value['oid'],icon_url: $value['icon_url'],icon_preview: $value['icon_preview'],stock: $value['stock'],
+            pro_num: $value['pro_num'],status: $value['status'],cp_name: cpIdText[$value['cid']] || '',rank: $idx,create_res: $value['create_res']};
             $idx++;
         }
         return {code: ReturnCode.Success, data: $data};
@@ -149,6 +149,9 @@ class prop extends facade.Control
      * @param {*} objData 
      */
     LocalDetail(user, objData) {
+        if (objData==null) {
+            return {code: -1};
+        }
         let cpIdText = this.cpIdText();
         cpIdText = cpIdText.data || {};
         //根据上行id查找表中记录, 注意在 get 方式时 id 不会自动由字符串转换为整型
@@ -162,13 +165,10 @@ class prop extends facade.Control
                     props_type:prop.getAttr('props_type'),
                     cid:prop.getAttr('cid'),
                     props_desc:prop.getAttr('props_desc'),
-                    pid:prop.getAttr('pid'),
                     oid:prop.getAttr('oid'),
                     icon_url:prop.getAttr('icon_url'),
                     icon_preview:prop.getAttr('icon_preview'),
-                    gold:prop.getAttr('gold'),
                     status:prop.getAttr('status'),
-                    cp:prop.getAttr('cp'),
                     stock:prop.getAttr('stock'),
                     pro_num:prop.getAttr('pro_num'),
                     createdAt:prop.getAttr('createdAt'),
@@ -196,14 +196,8 @@ class prop extends facade.Control
             paramGold.props_desc,
             paramGold.icon_url,
             paramGold.icon_preview,
-            paramGold.pid,
             paramGold.oid,
-            paramGold.oper,
-            paramGold.prev,
-            paramGold.current,
-            paramGold.gold,
             paramGold.status,
-            paramGold.cp,
             paramGold.stock,
             paramGold.pro_num,
             paramGold.createdAt,
@@ -221,7 +215,7 @@ class prop extends facade.Control
     * @memberof prop
     */
    async CreatePropRemote(user, paramGold) {
-        let remote=new RemoteNode().conn(paramGold.userinfo);
+        let remote=new RemoteNode().connY(paramGold.userinfo);
         let paramArray=paramGold.items;
         if (typeof(paramArray)=="string") {
             paramArray=eval(paramArray);
@@ -238,23 +232,63 @@ class prop extends facade.Control
     * @memberof prop
     */
    async CreatePropListRemote(user, paramGold) {
-    let remote=new RemoteNode().conn(paramGold.userinfo);
+
+    if (paramGold==null){
+        return {code: -1, msg: '参数不正确'};
+    }
+    if(typeof paramGold.id == 'undefined' || paramGold.id == '') {
+        return {code: -1, msg: '道具ID不正确'};
+    }
+    if(typeof paramGold.cid == 'undefined' || paramGold.cid == '') {
+        return {code: -1, msg: '游戏CID不正确'};
+    }
+    if(typeof paramGold.oid == 'undefined' || paramGold.oid == '') {
+        return {code: -1, msg: '道具OID不正确'};
+    }
+    if(typeof paramGold.num == 'undefined' || paramGold.num == '') {
+        return {code: -1, msg: '生产数量不正确'};
+    }
+    if(typeof paramGold.gold == 'undefined' || paramGold.gold == '') {
+        return {code: -1, msg: '游戏金数量不正确'};
+    }
+    let id = parseInt(paramGold.id);
+    //查找该道具本地详情，只有status 1才生产
+    let propDetail = facade.GetObject(103, id);
+
+    console.log(propDetail);
+
+    let status = parseInt(propDetail.getAttr('status'));
+    if(status !== 1){
+        return {code: -2, msg: '道具状态不正确'};
+    }
+
+    let remote=new RemoteNode().connY(paramGold.userinfo);
     //prop.createlist "cid|oid|gold,cid|oid|gold"
     let reqStr = '';
     for(let i = 1; i<=paramGold.num; i++){
         if(i < paramGold.num){
-            reqStr += `${paramGold.pid}|${paramGold.oid}|${paramGold.gold},`;
+            reqStr += `${paramGold.cid}|${paramGold.oid}|${paramGold.gold},`;
         }else{
-            reqStr += `${paramGold.pid}|${paramGold.oid}|${paramGold.gold}`;
+            reqStr += `${paramGold.cid}|${paramGold.oid}|${paramGold.gold}`;
         }
     }
     let reqArr = new Array();
     reqArr[0] = reqStr;
-    console.log(reqArr);
     let ret = await remote.execute('prop.createlist', reqArr);
     console.log(ret);
-    //TODO 成功后这里修改道具库并记录
-    return {code: ReturnCode.Success,data: ret};
+    if(ret.length > 0){
+        //成功后这里修改道具库并记录
+        this.UpdateProp({
+            id: id,
+            create_res: JSON.stringify(ret),
+            pro_num: ret.length,
+            stock: ret.length
+        });
+        return {code: ReturnCode.Success,data:ret};
+    }else{
+        return {code: -3, msg: '道具生产失败'};
+    }
+    
     }
 
     /**
@@ -262,7 +296,7 @@ class prop extends facade.Control
      */
     cpIdText() {
         let paramArray=new Array();
-        paramArray.push(['cp_state','==',2]);//读取已上架
+        //paramArray.push(['cp_state','==',2]);//读取已上架
         let resList = facade.GetMapping(102) 
         .groupOf() 
         .where(paramArray)
@@ -276,29 +310,26 @@ class prop extends facade.Control
     }
     /**
      * 修改记录
-     * @param {*} user 
      * @param {*} objData 
      */
-    UpdateProp(user, objData) {
+    UpdateProp(objData) {
         if (objData==null) {
             objData={};
         }
-        let id = '';
-        let create_res = '';
-        if (typeof(objData.id) != "undefined" && (objData.id!="")) {
-            id = parseInt(objData.id);
-        }
-        if (typeof(objData.create_res) != "undefined" && (objData.create_res!="")) {
-            create_res = objData.create_res;
-        }
-        if( id =='' || create_res == ''){
-            return {code: -2};
+        let id = typeof(objData.id) != "undefined" && (objData.id!="") ?  parseInt(objData.id) : '';
+        let create_res = typeof(objData.create_res) != "undefined" && (objData.create_res!="") ?  objData.create_res : '';
+        let pro_num = typeof(objData.pro_num) != "undefined" && (objData.pro_num !="") ?  parseInt(objData.pro_num) : '';
+        let stock = typeof(objData.stock) != "undefined" && (objData.stock !="") ?  parseInt(objData.stock) : '';
+        if(id == ''){
+            return {code: -1}; 
         }
         let prop = facade.GetObject(103, id);
         if(!!prop) {
             //需要针对各个属性增加为null的判断；如果为null的情况下，则
             prop.setAttr('status',2);
             prop.setAttr('create_res',create_res);
+            prop.setAttr('pro_num',pro_num);
+            prop.setAttr('stock',stock);
             //prop.setAttr('updatedAt',objData.updatedAt);
             return {code: ReturnCode.Success};
         }

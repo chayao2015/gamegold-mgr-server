@@ -21,7 +21,7 @@ class PropEntity extends BaseEntity
      * 创建记录时的钩子函数
      */
     static async onCreate(propsName,propsType,cid,propsDesc,iconUrl,
-        iconPreview,pid,oid,oper,prev,current,gold,status,cp,stock,pro_num,createdAt,updatedAt) {
+        iconPreview,oid,status,stock,pro_num,createdAt,updatedAt,create_res) {
         try{
             let it = await Prop().create({
                 'props_name': propsName,
@@ -30,18 +30,13 @@ class PropEntity extends BaseEntity
                 'props_desc': propsDesc,
                 'icon_url': iconUrl,
                 'icon_preview': iconPreview,
-                'pid': pid,
                 'oid': oid,
-                'oper': oper,
-                'prev': prev,
-                'current': current,
-                'gold':gold,
                 'status':status,
-                'cp':cp,
                 'stock':stock,
                 'pro_num':pro_num,
                 'createdAt':createdAt,
                 'updatedAt':updatedAt,
+                'create_res':create_res,
             });
             await it.save();
     

@@ -26,6 +26,7 @@ describe('道具（prop）', function() {
             props_name:'',
             cid:'',
         });
+        console.log(list);
         }
     }
     );
@@ -41,10 +42,10 @@ describe('道具（prop）', function() {
         }
     }
     );
-    it('prop.LocalDetail 获取道具详情LocalDetail', async () => { 
+    it.only('prop.LocalDetail 获取道具详情LocalDetail', async () => { 
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
-            let detail = await remote.fetching({func: "prop.LocalDetail", id: 25});
+            let detail = await remote.fetching({func: "prop.LocalDetail", id: 30});
             console.log(detail);
         }
     });
@@ -67,16 +68,11 @@ describe('道具（prop）', function() {
             props_desc:'这是一种飞行坐骑',
             icon_url:'http://db.duowan.com/wow/resources/screenshot/item/3/32458/normal/257646.jpg',
             icon_preview:'[http://db.duowan.com/wow/resources/screenshot/item/3/32458/normal/171317.jpg,http://db.duowan.com/wow/resources/screenshot/item/3/32458/normal/219355.jpg]',
-            pid:'xxxxxxxx-game-gold-boss-tokenxxx00042-11',
             oid:'xxxxxxxx-game-gold-boss-tokenxxx00042',
-            oper:'exchange',
-            prev:'',
-            current:'',
-            gold:100000000,
             status:1,
-            cp:'{"cid":"xxxxxxxx-game-gold-boss-xxxxxxxxxxxx","name":"BOSS","url":"920.cc","ip":"*"}',
             stock :0,
             pro_num :0,
+            create_res :'',
             createdAt :'2018-12-2 16:49:39',
             updatedAt :'2018-12-2 16:49:46'
         });
@@ -95,15 +91,7 @@ describe('道具（prop）', function() {
         if(remote.isSuccess(msg)) {
             let list = await remote.fetching({func: "prop.UpdateProp",
             id:25,
-            create_res:JSON.stringify({
-                "oper": "new",
-                "cid": "b77a9b90-bbc4-11e8-9203-1ff8357db148",
-                "oid": "gamemonkey0003",
-                "gold": 10000,
-                "pid": "15e1a160-bbc5-11e8-9203-1ff8357db148",
-                "index": 0,
-                "txid": "d88d0e9ed243fb767643ea1dea754af9aab53e3eab274c4c1f95067efc15135b"
-              }),
+            create_res:JSON.stringify([]),
         
         });
          console.log(list);
@@ -117,14 +105,15 @@ describe('道具（prop）', function() {
             remote.isSuccess(msg, true);
         }
     });
-    it.only('批量生产 prop.CreatePropListRemote', async () => {
+    it('批量生产 prop.CreatePropListRemote', async () => {
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
             msg = await remote.fetching({func: "prop.CreatePropListRemote",
-            pid : '0f4a49d0-ed55-11e8-b73c-3572ec77796e', 
-            oid : 'xx-token', 
+            cid : '195062d0-fa01-11e8-a5d7-ad318d3cb4a9', 
+            oid : 'testtokenxxx00001', 
             gold :100000, 
-            num : 2
+            num : 2,
+            id:25
         
         });
         console.log(msg);
