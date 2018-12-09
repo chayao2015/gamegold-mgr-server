@@ -42,7 +42,7 @@ describe('道具（prop）', function() {
         }
     }
     );
-    it.only('prop.LocalDetail 获取道具详情LocalDetail', async () => { 
+    it('prop.LocalDetail 获取道具详情LocalDetail', async () => { 
         let msg = await remote.login({openid: `${Math.random()*1000000000 | 0}`});
         if(remote.isSuccess(msg)) {
             let detail = await remote.fetching({func: "prop.LocalDetail", id: 30});
@@ -64,7 +64,7 @@ describe('道具（prop）', function() {
             let res = await remote.fetching({func: "prop.CreateLocal", 
             props_name:'奥的灰烬',
             props_type:1,
-            cid:'8993ee70-f783-11e8-b7aa-b7ccf462e0a1',
+            cid:'195062d0-fa01-11e8-a5d7-ad318d3cb4a9',
             props_desc:'这是一种飞行坐骑',
             icon_url:'http://db.duowan.com/wow/resources/screenshot/item/3/32458/normal/257646.jpg',
             icon_preview:'[http://db.duowan.com/wow/resources/screenshot/item/3/32458/normal/171317.jpg,http://db.duowan.com/wow/resources/screenshot/item/3/32458/normal/219355.jpg]',

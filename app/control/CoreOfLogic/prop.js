@@ -189,7 +189,7 @@ class prop extends facade.Control
     * @memberof prop
     */
    async CreateLocal(user, paramGold) {
-        let insert = await facade.GetMapping(103).Create( 
+        let res = await facade.GetMapping(103).Create( 
             paramGold.props_name,
             paramGold.props_type,
             paramGold.cid,
@@ -203,8 +203,7 @@ class prop extends facade.Control
             paramGold.createdAt,
             paramGold.updatedAt,
             );
-            console.log(insert);
-        return {code: ReturnCode.Success,data: insert.id};
+        return {code: ReturnCode.Success,data: res.orm};
     }
 
    /**
@@ -275,7 +274,9 @@ class prop extends facade.Control
     let reqArr = new Array();
     reqArr[0] = reqStr;
     let ret = await remote.execute('prop.createlist', reqArr);
-    console.log(ret);
+    if(ret == nul){
+        return {code: -3, msg: '主链返回失败，道具生产失败'};
+    }
     if(ret.length > 0){
         //成功后这里修改道具库并记录
         this.UpdateProp({
